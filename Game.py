@@ -1,12 +1,15 @@
 from Module import *
+from Inimigos import *
 
 
 p1 = Player('Bruno')
-faca = Faca()
+faca = Faquinha()
 orc = Orc()
 mino = Minotauro()
+troll = Troll()
 mochila = Mochila()
-mochila.Adicionar_mochila('potion')
-print(p1.ataque(faca, mino))
-print(p1.ataque(faca, mino))
-print(p1.ataque(faca, mino))
+mochila.Adicionar_mochila('Escama', 2)
+mochila.Adicionar_mochila('Escama', 4)
+print(p1.ataque(faca, troll))
+print(p1.ataque(faca, troll))
+print(p1.ataque(faca, troll))
