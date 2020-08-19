@@ -1,21 +1,36 @@
-class Troll:
-    vivo = True
-    exp = 15
+class Monsters:
+    def atacarPlayer(self, player):
+        player.vida -= self.ataque
+        if player.vida <= 0:
+            player.vida = 0
+            if player.vivo:
+                player.vivo = False
+                return f'{player.nome_player} foi morto por {self.name}'
+            else:
+                return f'{player.nome_player} ja esta morto'
+        return f'{self.name} ataca {player.nome_player} que ficou com {player.vida} de vida'
+
+
+
+class Troll(Monsters):
     name = 'Troll'
     life = 50
     ataque = 10
-
-
-class Orc:
+    exp = 15
     vivo = True
-    exp = 30
+
+
+class Orc(Monsters):
     name = 'Orc'
     life = 100
     ataque = 20
-
-class Minotauro:
+    exp = 30
     vivo = True
-    exp = 40
+
+
+class Minotauro(Monsters):
     name = 'Minotauro'
     life = 150
     ataque = 30
+    exp = 40
+    vivo = True
