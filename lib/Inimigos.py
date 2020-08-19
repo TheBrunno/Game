@@ -1,3 +1,6 @@
+from random import randint
+
+
 class Monsters:
     def atacarPlayer(self, player):
         player.vida -= self.ataque
@@ -15,7 +18,7 @@ class Monsters:
 class Troll(Monsters):
     name = 'Troll'
     life = 50
-    ataque = 10
+    ataque = randint(8, 12)
     exp = 15
     vivo = True
 
@@ -23,14 +26,32 @@ class Troll(Monsters):
 class Orc(Monsters):
     name = 'Orc'
     life = 100
-    ataque = 20
+    ataque = randint(18, 22)
     exp = 30
     vivo = True
 
 
-class Minotauro(Monsters):
-    name = 'Minotauro'
+class Minotaur(Monsters):
+    name = 'Minotaur'
     life = 150
-    ataque = 30
+    ataque = randint(28, 32)
     exp = 40
     vivo = True
+
+
+class Skeleton(Monsters):
+    name = 'Skeleton'
+    life = 150
+    ataque = randint(48, 52)
+    exp = 45
+    vivo = True
+
+
+class Cursed_Skeleton(Monsters):
+    name = 'Cursed Skeleton'
+    life = 210
+    ataque = randint(78, 82)
+    exp = 105
+    vivo = True
+
+
