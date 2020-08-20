@@ -1,19 +1,33 @@
-from lib.Armas import *
-from lib.Inimigos import *
-from lib.Mochila import *
-from lib.Player import *
+from lib.Armas import Faquinha, Espada
+from lib.Inimigos import Cursed_Skeleton, Troll, Orc
+from lib.Mochila import Mochila
+from lib.Player import Player
 
-p1 = Player('Bruno')
-faca = Faquinha()
-curse = Cursed_Skeleton()
-troll = Troll()
-# print(curse.atacarPlayer(p1))
-# print(curse.atacarPlayer(p1))
-# print(curse.atacarPlayer(p1))
-mochila = Mochila()
-mochila.Adicionar_mochila('Escama', 2)
-mochila.Adicionar_mochila('Curativo', 10)
-mochila.AbrirMochila()
-print(p1.atacarMonstro(faca, troll))
-print(p1.atacarMonstro(faca, troll))
-print(p1.atacarMonstro(faca, troll))
+
+
+def Menu(lst):
+    print('-=' * 10)
+    for ind, ele in enumerate(lst):
+        print(f'{ind + 1} - {ele}')
+    print('-=' * 10)
+
+
+
+listaAtk = ['Atacar monstro']
+faca = Espada()
+# name_player = input('Digite o nome do player: ')
+player = Player('name_player')
+# print(f'Seja bem vindo {name_player}...')
+# print('Vamos aprender alguns comandos basicos? Vamos nessa:')
+troll = Orc()
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))
+print(player.atacarMonstro(faca,troll))

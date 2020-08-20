@@ -14,6 +14,7 @@ class Player:
                 if monster.vivo:
                     monster.vivo = False
                     self.exp_player += monster.exp
+                    monster.Dropar(self)
                     return f'{self.nome_player} matou {monster.name}.\n{self.nome_player} ganhou {monster.exp} de exp'
                 else:
                     return f'{monster.name} ja esta morto'

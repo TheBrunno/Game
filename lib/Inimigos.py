@@ -1,7 +1,16 @@
 from random import randint
+from lib.Mochila import *
 
 
 class Monsters:
+    def Dropar(self, player):
+        mochila = Mochila()
+        for ele in range(len(self.drop)):
+            ran = randint(0, 100)
+            if ran <= self.porc[ele]:
+                taxa = randint(1, self.qtd[ele])
+                mochila.Adicionar_mochila(self.drop[ele], taxa)
+
     def atacarPlayer(self, player):
         player.vida -= self.ataque
         if player.vida <= 0:
@@ -16,6 +25,9 @@ class Monsters:
 
 
 class Troll(Monsters):
+    drop = ['Gold Coin', 'Troll Head', 'Meat']
+    qtd = [5, 1, 4]
+    porc = [50, 10, 40]
     name = 'Troll'
     life = 50
     ataque = randint(8, 12)
@@ -24,6 +36,9 @@ class Troll(Monsters):
 
 
 class Orc(Monsters):
+    drop = ['Gold Coin', 'Orc Legs', 'Spear', 'Orc Hair']
+    qtd = [8, 2, 4, 2]
+    porc = [90, 15, 25, 27]
     name = 'Orc'
     life = 100
     ataque = randint(18, 22)
