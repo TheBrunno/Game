@@ -1,7 +1,6 @@
 import json
 
 class Mochila:
-
     def Adicionar_mochila(self, item, qtd):
         arquivo_json = open('_mochila.json', 'r')
         dic = json.load(arquivo_json)
@@ -76,5 +75,11 @@ class Mochila:
                 dic2[k] = v
             with open('_mochila.json', 'w') as json_file:
                 json.dump(dic2, json_file, indent=4)
-                    
-                
+
+    def MostrarPots(self):
+        with open('_mochila.json', 'r') as json_file:
+            dic = json.load(json_file)
+            print('=-' * 10)
+            for k, v in dic.items():
+                if k == 'Life Potion' or k == 'Mana Potion':
+                    print(f'{k}: {v}')

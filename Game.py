@@ -1,30 +1,16 @@
 from lib.Armas import Faquinha, Espada
 from lib.Inimigos import Cursed_Skeleton, Troll, Orc, Monsters
 from lib.Mochila import Mochila
-from lib.Player import Player
+from lib.Player import Player, Menu, LeiaInt
 from lib.Item import LifePotion, ManaPotion
 
 
-
-def Menu(lst):
-    print('-=' * 10)
-    for ind, ele in enumerate(lst):
-        print(f'{ind + 1} - {ele}')
-    print('-=' * 10)
-
-
-
-listaAtk = ['Atacar monstro']
-faca = Espada()
-# name_player = input('Digite o nome do player: ')
-player = Player('name_player')
-# print(f'Seja bem vindo {name_player}...')
-# print('Vamos aprender alguns comandos basicos? Vamos nessa:')
-troll = Orc()
-print(troll.atacarPlayer(player))
-print(troll.atacarPlayer(player))
-print(troll.atacarPlayer(player))
-print(troll.atacarPlayer(player))
-pot = LifePotion()
-player.Usar(pot)
-print(player.vida)
+listatu = ['Sim', 'Não']
+name_player = input('Digite o nome do player: ').title()
+player = Player(f'{name_player}')
+print(f'Seja bem vindo {name_player}...')
+print('Vamos aprender alguns comandos basicos?\n')
+print('Quer aprender a atacar monstros?')
+faca = Faquinha
+troll = Troll()
+player.ModoAtaque(faca, troll)

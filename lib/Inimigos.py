@@ -1,8 +1,11 @@
 from random import randint
-from lib.Mochila import *
+from lib.Mochila import Mochila
 
 
 class Monsters:
+    def __init__(self):
+        print(f'O monstro \'{self.name}\' apareceu com {self.life} de HP')
+
     def Dropar(self, player):
         mochila = Mochila()
         for ele in range(len(self.drop)):
@@ -30,9 +33,12 @@ class Troll(Monsters):
     porc = [50, 10, 40]
     name = 'Troll'
     life = 50
-    ataque = randint(5, 15)
+    ataque = randint(15, 30)
     exp = 15
     vivo = True
+    conversavel = True
+    msgNot = 'Troll não entendeu muito bem oque você disse'
+    msgTru = 'Troll não entendeu oque disse, mas acha que você não é uma ameaça'
 
 
 class Orc(Monsters):

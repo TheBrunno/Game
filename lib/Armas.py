@@ -7,10 +7,11 @@ class ArmasBrancas:
 class Arco:
     pass
 
+    
 class Faquinha(ArmasBrancas):
     name = 'Faquinha'
-    ataque = randint(10, 20)
+    ataque = randint(20, 30)
 
 class Espada(ArmasBrancas):
     name = 'Espada'
-    ataque = randint(15, 25)
+    ataque = randint(35, 45)
