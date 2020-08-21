@@ -1,3 +1,6 @@
+from lib.Item import LifePotion, ManaPotion
+from lib.Mochila import Mochila
+
 class Player:
     vivo = True
     lvl = 1
@@ -5,6 +8,15 @@ class Player:
     def __init__(self, nome):
         self.nome_player = nome
         self.exp_player = 0
+
+    def Usar(self, item):
+        mochila = Mochila()
+        if mochila.VerificarItem('Life Potion'):
+            self.vida += item.Add
+            mochila.RetirarItem('Life Potion')
+            print(f'\'{self.nome_player}\' Usou Life Potion e recuperou {item.Add} de vida\nFicando com {self.vida}HP')
+            if self.vida > 100:
+                self.vida = 100
 
     def atacarMonstro(self, arm, monster):
         if self.vivo:
