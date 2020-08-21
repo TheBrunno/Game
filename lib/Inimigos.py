@@ -30,7 +30,7 @@ class Troll(Monsters):
     porc = [50, 10, 40]
     name = 'Troll'
     life = 50
-    ataque = randint(8, 12)
+    ataque = randint(5, 15)
     exp = 15
     vivo = True
 
@@ -41,7 +41,7 @@ class Orc(Monsters):
     porc = [90, 15, 25, 27]
     name = 'Orc'
     life = 100
-    ataque = randint(18, 22)
+    ataque = randint(14, 27)
     exp = 30
     vivo = True
 
@@ -49,7 +49,7 @@ class Orc(Monsters):
 class Minotaur(Monsters):
     name = 'Minotaur'
     life = 150
-    ataque = randint(28, 32)
+    ataque = randint(24, 36)
     exp = 40
     vivo = True
 

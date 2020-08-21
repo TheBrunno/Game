@@ -1,6 +1,6 @@
 class ManaPotion:
-    pass
-
+    Add = 80
+    name = 'Mana Potion'
 
 class LifePotion:
     Add = 70

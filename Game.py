@@ -2,7 +2,7 @@ from lib.Armas import Faquinha, Espada
 from lib.Inimigos import Cursed_Skeleton, Troll, Orc, Monsters
 from lib.Mochila import Mochila
 from lib.Player import Player
-from lib.Item import LifePotion
+from lib.Item import LifePotion, ManaPotion
 
 
 
