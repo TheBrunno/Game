@@ -56,22 +56,25 @@ class Player:
         mochila = Mochila()
         if mochila.VerificarItem(arm.name):
             if self.vivo:
-                monster.life -= arm.ataque
-                if monster.life <= 0:
-                    monster.life = 0
-                    if monster.vivo:
+                if monster.vivo:
+                    if arm.Gastaveis:
+                        qtd = int(mochila.VerificarItem(arm.flecha_name, True))
+                        if qtd <= 0:
+                            arm.atacavel = False
+                            return f'{self.nome_player} não pode atacar pois acabou as flechas'
+                        mochila.RetirarItem(arm.flecha_name)
+                    monster.life -= arm.ataque
+                    if monster.life <= 0:
+                        monster.life = 0
                         monster.vivo = False
                         self.exp_player += monster.exp
                         monster.Dropar(self)
                         return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você venceu! Ganhou {monster.exp} de exp'
-                    else:
-                        return f'{monster.name} ja esta morto'
-                else:
                     return f'{self.nome_player} ataca \'{monster.name}\' com {arm.name}, que ficou com {monster.life} de vida'
             else:
                 return f'{self.nome_player} não pode atacar pois esta morto'
         else:
-            print(f'{self.nome_player} não tem esse item')
+            return f'{self.nome_player} não tem esse item'
 
 
     def ModoAtaque(self, arma, monster):
@@ -123,7 +126,7 @@ class Player:
             elif op == 4:
                 from random import randint
                 porc = randint(0, 2)
-                if porc == 1:
+                if porc == 1 or porc == 2:
                     sleep(2)
                     print(f'{self.nome_player} fugiu da luta com {monster.name}...')
                     return 'Fugiu'

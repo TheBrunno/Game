@@ -55,7 +55,7 @@ class Mochila:
                 for k, v in dicionario_json.items():
                     cont += 1
                     if k == name:
-                        return f'{k}: {v}'
+                        return v
                     elif cont == len(dicionario_json):
                         return False
 

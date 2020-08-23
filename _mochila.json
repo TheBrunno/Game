@@ -1,10 +1,13 @@
 {
     "Life Potion": 27,
     "Mana Potion": 29,
+    "Arco Simples": 1,
+    "Flecha Simples": 3,
     "Faquinha": 1,
     "Orc Hair": 18,
     "Spear": 12,
-    "Gold Coin": 80,
+    "Gold Coin": 109,
     "Orc Legs": 8,
-    "Meat": 13
+    "Meat": 31,
+    "Troll Head": 1
 }
