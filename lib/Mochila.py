@@ -83,3 +83,22 @@ class Mochila:
             for k, v in dic.items():
                 if k == 'Life Potion' or k == 'Mana Potion':
                     print(f'{k}: {v}')
+
+    def MostrarArmas(self, usuario=True):
+        with open('_mochila.json', 'r') as json_file:
+            dic = json.load(json_file)
+            if usuario:
+                for k , v in dic.items():
+                    if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples':
+                        print('=-' * 10)
+                        if usuario:
+                            print(f'{k}: {v}')
+            if not usuario:
+                arms = []
+                for k in dic:
+                    if k == 'Flecha Simples':
+                        continue
+                    else:
+                        if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada':
+                            arms.append(k)
+                return arms

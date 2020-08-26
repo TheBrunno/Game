@@ -25,21 +25,25 @@ class Faquinha(ArmasBrancas):
     ataque = randint(20, 30)
     Gastaveis = False
     atacavel = True
+    equipado = False
 
 class Espada(ArmasBrancas):
     name = 'Espada'
     ataque = randint(35, 45)
     Gastaveis = False
     atacavel = True
+    equipado = False
 
 class FlechaSimples(Flechas):
     name = 'Flecha Simples'
-    ataque = randint(25, 35)
+    ataque = randint(22, 32)
     Gastaveis = True
     atacavel = False
+    equipado = False
 
 class ArcoSimples(Arcos):
     name = 'Arco Simples'
     ataque = 0
     Gastaveis = False
     atacavel = False
+    equipado = False

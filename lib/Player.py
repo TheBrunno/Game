@@ -17,13 +17,16 @@ def LeiaInt(msg, maxn, minn=1):
             return num
 
 
-def Menu(lst):
+def Menu(lst, num=False):
     print('-=' * 10)
     for ind, ele in enumerate(lst):
         print(f'{ind + 1} - {ele}')
     print('-=' * 10)
     op = LeiaInt('Digite sua opção: ', len(lst))
-    return op
+    if not num:
+        return lst[op - 1]
+    elif num:
+        return op
 
 
 class Player:
@@ -31,6 +34,7 @@ class Player:
     lvl = 1
     vida = lvl * 100
     mana = lvl * 150
+    equip = None
     def __init__(self, nome):
         self.nome_player = nome
         self.exp_player = 0
@@ -52,87 +56,96 @@ class Player:
             mochila.RetirarItem(item.name)
 
 
-    def atacarMonstro(self, arm, monster):
+    def atacarMonstro(self, monster):
         mochila = Mochila()
-        if mochila.VerificarItem(arm.name):
+        if self.equip == None:
+            return f'É necessario equipar uma arma antes de usar'
+        if mochila.VerificarItem(self.equip.name):
             if self.vivo:
                 if monster.vivo:
-                    if arm.Gastaveis:
-                        qtd = int(mochila.VerificarItem(arm.flecha_name, True))
+                    if self.equip.Gastaveis:
+                        qtd = int(mochila.VerificarItem(self.equip.flecha_name, True))
                         if qtd <= 0:
-                            arm.atacavel = False
+                            self.equip.atacavel = False
                             return f'{self.nome_player} não pode atacar pois acabou as flechas'
-                        mochila.RetirarItem(arm.flecha_name)
-                    monster.life -= arm.ataque
+                        mochila.RetirarItem(self.equip.flecha_name)
+                    monster.life -= self.equip.ataque
                     if monster.life <= 0:
                         monster.life = 0
                         monster.vivo = False
                         self.exp_player += monster.exp
                         monster.Dropar(self)
                         return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você venceu! Ganhou {monster.exp} de exp'
-                    return f'{self.nome_player} ataca \'{monster.name}\' com {arm.name}, que ficou com {monster.life} de vida'
+                    return f'{self.nome_player} ataca \'{monster.name}\' com {self.equip.name}, que ficou com {monster.life} de vida'
             else:
                 return f'{self.nome_player} não pode atacar pois esta morto'
         else:
             return f'{self.nome_player} não tem esse item'
 
 
-    def ModoAtaque(self, arma, monster):
+    def ModoAtaque(self, monster):
+        arma = self.equip
         atacado = False
         listaAtk = ['Atacar monstro', 'Usar Potions', 'Conversar', 'Fugir']
         while monster.vivo:
-            op = Menu(listaAtk)
-            if op == 1:
-                sleep(1)
-                print(self.atacarMonstro(arma, monster))
-                atacado = True
-                sleep(1)
-                if monster.vivo:
-                    print(monster.atacarPlayer(self))
-            elif op == 2:
-                mochila = Mochila()
-                sleep(1)
-                while True:
-                    mochila.MostrarPots()
-                    resp = str(input('999 para\nDigite sua opção: [Mana/Life]: ')).lower()
-                    if resp == 'mana' or resp == 'mana potion':
-                        manapot = ManaPotion()
-                        self.Usar(manapot)
-                        break
-                    elif resp == 'life' or resp == 'life potion':
-                        lifepot = LifePotion()
-                        self.Usar(lifepot)
-                        break
-                    elif resp == '999':
-                        break
-                    print('=-' * 10)
-                    print('ERRO! DIGITE UMA OPÇÃO VALIDA [Mana/Life]')
-            elif op == 3:
-                if monster.conversavel:
-                    from random import randint
-                    porc = randint(0, 5)
-                    if porc == 3 and not atacado:
-                        sleep(2)
-                        print(monster.msgTru)
-                        sleep(1)
-                        print(f'{self.nome_player} conversou com {monster.name} e foi poupado\nParabens, você venceu.')
-                        sleep(1)
-                        break
+            if self.vivo:
+                op = Menu(listaAtk)
+                if op == 'Atacar monstro':
                     sleep(1)
-                    print(monster.msgNot)
+                    print(self.atacarMonstro(monster))
+                    atacado = True
                     sleep(1)
                     if monster.vivo:
                         print(monster.atacarPlayer(self))
-            elif op == 4:
-                from random import randint
-                porc = randint(0, 2)
-                if porc == 1 or porc == 2:
-                    sleep(2)
-                    print(f'{self.nome_player} fugiu da luta com {monster.name}...')
-                    return 'Fugiu'
-                else:
+                elif op == 'Usar Potions':
+                    mochila = Mochila()
                     sleep(1)
-                    print(f'{self.nome_player} não conseguiu fugir da luta com {monster.name}')
-                    sleep(2)
-                    print(monster.atacarPlayer(self))
-                    sleep(1)
+                    while True:
+                        mochila.MostrarPots()
+                        resp = str(input('999 para\nDigite sua opção: [Mana/Life]: ')).lower()
+                        if resp == 'mana' or resp == 'mana potion':
+                            manapot = ManaPotion()
+                            self.Usar(manapot)
+                            break
+                        elif resp == 'life' or resp == 'life potion':
+                            lifepot = LifePotion()
+                            self.Usar(lifepot)
+                            break
+                        elif resp == '999':
+                            break
+                        print('=-' * 10)
+                        print('ERRO! DIGITE UMA OPÇÃO VALIDA [Mana/Life]')
+                elif op == 'Conversar':
+                    if monster.conversavel:
+                        from random import randint
+                        porc = randint(0, 5)
+                        if porc == 3 and not atacado:
+                            sleep(2)
+                            print(monster.msgTru)
+                            sleep(1)
+                            print(f'{self.nome_player} conversou com {monster.name} e foi poupado\nParabens, você venceu.')
+                            sleep(1)
+                            break
+                        sleep(1)
+                        print(monster.msgNot)
+                        sleep(1)
+                        if monster.vivo:
+                            print(monster.atacarPlayer(self))
+                elif op == 'Fugir':
+                    from random import randint
+                    porc = randint(0, 2)
+                    if porc == 1 or porc == 2:
+                        sleep(2)
+                        print(f'{self.nome_player} fugiu da luta com {monster.name}...')
+                        return 'Fugiu'
+                    else:
+                        sleep(1)
+                        print(f'{self.nome_player} não conseguiu fugir da luta com {monster.name}')
+                        sleep(2)
+                        print(monster.atacarPlayer(self))
+                        sleep(1)
+            else:
+                return '__m1fsd4t'
+
+    def Equipar(self, equip):
+        self.equip = equip

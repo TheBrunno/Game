@@ -27,19 +27,34 @@ def leiaStr(msg):
 
 
 listatu = ['Sim', 'Não']
+listarminicial = ['Faquinha', 'Arco Simples (Vem com 25 flechas simples)']
 name_player = leiaStr(' Digite o nome do player: ')
 player = Player(f'{name_player}')
 print(f'Seja bem vindo {name_player}...')
 print('Vamos aprender alguns comandos basicos?')
 print('Quer aprender a atacar monstros?\n')
 op = Menu(listatu)
-sleep(2)
-if op == 1:
-    flecha = FlechaSimples()
-    faca = ArcoSimples(flecha)
+if op == 'Sim':
     troll = Troll()
-    player.ModoAtaque(faca, troll)
-if op == 2:
+    mochila = Mochila()
+    if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples'):
+        arm = Menu(listarminicial)
+        if arm == 'Faquinha' or arm[:12] == 'Arco Simples':
+            if arm == 'Faquinha':
+                arma = Faquinha()
+            elif arm[:12] == 'Arco Simples':
+                flecha = FlechaSimples()
+                mochila.Adicionar_mochila(flecha.name, 25)
+                arma = ArcoSimples(flecha)
+            mochila.Adicionar_mochila(arma.name, 1)
+            player.Equipar(arma)
+    else:
+        print('Qual arma usar?')
+        sleep(1)
+        lstArmas = mochila.MostrarArmas(False)
+        armaEscolhida = Menu(lstArmas)
+    res = player.ModoAtaque(troll)
+if op == 'Não':
     print('Ah, me parece que ja é experitente.. então vamos lá...')
 sleep(1)
 print('')
