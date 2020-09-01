@@ -1,5 +1,5 @@
 from lib.Armas import Faquinha, Espada, ArcoSimples, FlechaSimples, Arcos, Flechas
-from lib.Inimigos import Cursed_Skeleton, Troll, Orc, Monsters
+from lib.Inimigos import Cursed_Skeleton, Troll, Orc, Monsters, Minotaur
 from lib.Mochila import Mochila
 from lib.Player import Player, Menu, LeiaInt
 from lib.Item import LifePotion, ManaPotion
@@ -35,7 +35,7 @@ print('Vamos aprender alguns comandos basicos?')
 print('Quer aprender a atacar monstros?\n')
 op = Menu(listatu)
 if op == 'Sim':
-    troll = Troll()
+    troll = Minotaur()
     mochila = Mochila()
     if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples'):
         arm = Menu(listarminicial)
@@ -59,3 +59,6 @@ if op == 'Não':
     print('Ah, me parece que ja é experitente.. então vamos lá...')
 sleep(1)
 print('')
+while True:
+    troll0 = Minotaur()
+    player.ModoAtaque(troll0)

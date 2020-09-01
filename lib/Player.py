@@ -39,6 +39,7 @@ class Player:
     def __init__(self, nome):
         self.nome_player = nome
         self.exp_player = 0
+        self.upp = 100
     
 
     def Usar(self, item):
@@ -76,6 +77,11 @@ class Player:
                         monster.vivo = False
                         self.exp_player += monster.exp
                         monster.Dropar(self)
+                        if self.exp_player >= self.upp:
+                            self.upp += 300
+                            self.exp_player = 0
+                            self.lvl += 1
+                            return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você upou para o lvl {self.lvl}..'
                         return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você venceu! Ganhou {monster.exp} de exp'
                     return f'{self.nome_player} ataca \'{monster.name}\' com {self.equip.name}, que ficou com {monster.life} de vida'
             else:
@@ -131,6 +137,10 @@ class Player:
                         sleep(1)
                         if monster.vivo:
                             print(monster.atacarPlayer(self))
+                    else:
+                        sleep(2)
+                        print(monster.msgNot)
+                        sleep(1)
                 elif op == 'Fugir':
                     from random import randint
                     porc = randint(0, 2)
@@ -148,7 +158,6 @@ class Player:
                     mochila = Mochila()
                     lst = Menu(mochila.MostrarArmas(False))
                     self.Equipar(lst)
-
             else:
                 return '__m1fsd4t'
 
@@ -164,3 +173,6 @@ class Player:
             self.equip = arma
         else:
             self.equip = equip
+        sleep(1)
+        print(f'{self.nome_player} Equipou {arma.name}')
+        sleep(2)
