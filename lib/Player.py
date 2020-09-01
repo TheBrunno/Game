@@ -1,6 +1,7 @@
 from lib.Item import LifePotion, ManaPotion
 from lib.Mochila import Mochila
 from lib.Inimigos import Monsters
+from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples
 from time import sleep
 
 
@@ -84,9 +85,8 @@ class Player:
 
 
     def ModoAtaque(self, monster):
-        arma = self.equip
         atacado = False
-        listaAtk = ['Atacar monstro', 'Usar Potions', 'Conversar', 'Fugir']
+        listaAtk = ['Atacar monstro', 'Equipar item', 'Usar Potions', 'Conversar', 'Fugir']
         while monster.vivo:
             if self.vivo:
                 op = Menu(listaAtk)
@@ -144,8 +144,23 @@ class Player:
                         sleep(2)
                         print(monster.atacarPlayer(self))
                         sleep(1)
+                elif op == 'Equipar item':
+                    mochila = Mochila()
+                    lst = Menu(mochila.MostrarArmas(False))
+                    self.Equipar(lst)
+
             else:
                 return '__m1fsd4t'
 
     def Equipar(self, equip):
-        self.equip = equip
+        if isinstance(equip, str):
+            if equip == 'Faquinha':
+                arma = Faquinha()
+            elif equip == 'Espada':
+                arma = Espada()
+            elif equip == 'Arco Simples':
+                flecha = FlechaSimples()
+                arma = ArcoSimples(flecha)
+            self.equip = arma
+        else:
+            self.equip = equip

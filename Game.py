@@ -53,6 +53,7 @@ if op == 'Sim':
         sleep(1)
         lstArmas = mochila.MostrarArmas(False)
         armaEscolhida = Menu(lstArmas)
+        player.Equipar(armaEscolhida)
     res = player.ModoAtaque(troll)
 if op == 'Não':
     print('Ah, me parece que ja é experitente.. então vamos lá...')
