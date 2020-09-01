@@ -1,7 +1,7 @@
 import json
 
 class Mochila:
-    def Adicionar_mochila(self, item, qtd):
+    def Adicionar_mochila(self, item, qtd=1):
         arquivo_json = open('_mochila.json', 'r')
         dic = json.load(arquivo_json)
         arquivo_json.close()
@@ -18,15 +18,13 @@ class Mochila:
                 json_file.close()
                 passou = True
                 break
-            elif cont == int(len(dic)):
-                if passou:
-                    return
-                else:
-                    dic[item] = qtd
-                    json_file = open('_mochila.json', 'w')
-                    json.dump(dic, json_file, indent=4)
-                    json_file.close()
-                    break
+        if passou:
+            return
+        else:
+            dic[item] = qtd
+            json_file = open('_mochila.json', 'w')
+            json.dump(dic, json_file, indent=4)
+            json_file.close()
 
     def AbrirMochila(self):
         with open('mochila.json', 'r') as archive_json:
@@ -89,7 +87,7 @@ class Mochila:
             dic = json.load(json_file)
             if usuario:
                 for k , v in dic.items():
-                    if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples':
+                    if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples' or k == 'Mace':
                         print('=-' * 10)
                         if usuario:
                             print(f'{k}: {v}')
@@ -99,6 +97,6 @@ class Mochila:
                     if k == 'Flecha Simples':
                         continue
                     else:
-                        if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada':
+                        if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada' or k == 'Mace':
                             arms.append(k)
                 return arms

@@ -35,19 +35,18 @@ print('Vamos aprender alguns comandos basicos?')
 print('Quer aprender a atacar monstros?\n')
 op = Menu(listatu)
 if op == 'Sim':
-    troll = Minotaur()
+    troll = Troll()
     mochila = Mochila()
     if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples'):
         arm = Menu(listarminicial)
-        if arm == 'Faquinha' or arm[:12] == 'Arco Simples':
-            if arm == 'Faquinha':
-                arma = Faquinha()
-            elif arm[:12] == 'Arco Simples':
-                flecha = FlechaSimples()
-                mochila.Adicionar_mochila(flecha.name, 25)
-                arma = ArcoSimples(flecha)
-            mochila.Adicionar_mochila(arma.name, 1)
-            player.Equipar(arma)
+        if arm == 'Faquinha':
+            arma = Faquinha()
+        elif arm[:12] == 'Arco Simples':
+            flecha = FlechaSimples()
+            mochila.Adicionar_mochila(flecha.name, 25)
+            arma = ArcoSimples(flecha)
+        mochila.Adicionar_mochila(arma.name, 1)
+        player.Equipar(arma)
     else:
         print('Qual arma usar?')
         sleep(1)
@@ -59,6 +58,3 @@ if op == 'Não':
     print('Ah, me parece que ja é experitente.. então vamos lá...')
 sleep(1)
 print('')
-while True:
-    troll0 = Minotaur()
-    player.ModoAtaque(troll0)

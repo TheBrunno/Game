@@ -1,7 +1,7 @@
 from lib.Item import LifePotion, ManaPotion
 from lib.Mochila import Mochila
 from lib.Inimigos import Monsters
-from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples
+from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples, Mace
 from time import sleep
 
 
@@ -81,6 +81,8 @@ class Player:
                             self.upp += 300
                             self.exp_player = 0
                             self.lvl += 1
+                            self.vida = self.lvl * 100
+                            self.mana = self.lvl * 150
                             return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você upou para o lvl {self.lvl}..'
                         return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você venceu! Ganhou {monster.exp} de exp'
                     return f'{self.nome_player} ataca \'{monster.name}\' com {self.equip.name}, que ficou com {monster.life} de vida'
@@ -95,6 +97,9 @@ class Player:
         listaAtk = ['Atacar monstro', 'Equipar item', 'Usar Potions', 'Conversar', 'Fugir']
         while monster.vivo:
             if self.vivo:
+                Magia_Arma = ['Atacar Com Magia', 'Atacar com Armas']
+                print(f'\nFalta {self.upp - self.exp_player}XP Para você upar para o lvl {self.lvl + 1}')
+                print(f'LIFE:{self.vida}   MANA:{self.mana}   LVL:{self.lvl}')
                 op = Menu(listaAtk)
                 if op == 'Atacar monstro':
                     sleep(1)
@@ -124,19 +129,27 @@ class Player:
                 elif op == 'Conversar':
                     if monster.conversavel:
                         from random import randint
-                        porc = randint(0, 5)
+                        porc = randint(0, 3)
                         if porc == 3 and not atacado:
                             sleep(2)
                             print(monster.msgTru)
                             sleep(1)
-                            print(f'{self.nome_player} conversou com {monster.name} e foi poupado\nParabens, você venceu.')
-                            sleep(1)
-                            break
-                        sleep(1)
-                        print(monster.msgNot)
-                        sleep(1)
-                        if monster.vivo:
+                            self.exp_player += monster.exp
+                            if self.exp_player >= self.upp:
+                                self.upp += 300
+                                self.exp_player = 0
+                                self.lvl += 1
+                                self.vida = self.lvl * 100
+                                self.mana = self.lvl * 150
+                                print(f'{self.nome_player} conversou com {monster.name}. e entraram num acordo...\nParabens {self.nome_player}, você upou para o lvl {self.lvl}..')
+                                return
+                            print(f'{self.nome_player} conversou com {monster.name} e entraram num acordo...\nParabens, você ganhou {monster.exp}EXP.')
+                            return
+                        else:
+                            print(monster.msgNot)
+                            sleep(2)
                             print(monster.atacarPlayer(self))
+                            sleep(1)
                     else:
                         sleep(2)
                         print(monster.msgNot)
@@ -158,8 +171,6 @@ class Player:
                     mochila = Mochila()
                     lst = Menu(mochila.MostrarArmas(False))
                     self.Equipar(lst)
-            else:
-                return '__m1fsd4t'
 
     def Equipar(self, equip):
         if isinstance(equip, str):
@@ -170,9 +181,11 @@ class Player:
             elif equip == 'Arco Simples':
                 flecha = FlechaSimples()
                 arma = ArcoSimples(flecha)
+            elif equip == 'Mace':
+                arma = Mace()
             self.equip = arma
         else:
             self.equip = equip
         sleep(1)
-        print(f'{self.nome_player} Equipou {arma.name}')
+        print(f'{self.nome_player} Equipou {self.equip.name}')
         sleep(2)
