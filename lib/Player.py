@@ -1,30 +1,38 @@
-from lib.Item import LifePotion, ManaPotion
+from lib.Item import LifePotion, ManaPotion, Meat
 from lib.Mochila import Mochila
 from lib.Inimigos import Monsters
-from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples, Mace
+from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples, Mace, Spear, BoneAscent
 from time import sleep
 
 
-def LeiaInt(msg, maxn, minn=1):
+def LeiaInt(msg, maxn, minn=1, obrigatorio=True):
     while True:
         try:
             num = int(input(msg))
         except:
             print('Digite um numero inteiro')
         else:
+            if obrigatorio:
+                if num == 999:
+                    return 999
             if num > maxn or num < minn:
                 print(f'Digite um numero entre {minn} e {maxn}')
                 continue
             return num
 
 
-def Menu(lst, num=False):
+def Menu(lst, num=False, obrigatorio=True):
     print('-=' * 10)
     for ind, ele in enumerate(lst):
         print(f'{ind + 1} - {ele}')
     print('-=' * 10)
-    op = LeiaInt('Digite sua opção: ', len(lst))
+    if obrigatorio:
+        print('999 para sair')
+    op = LeiaInt('Digite sua opção: ', maxn=len(lst), minn=1 ,obrigatorio=obrigatorio)
     if not num:
+        if obrigatorio:
+            if op == 999:
+                return 999
         return lst[op - 1]
     elif num:
         return op
@@ -45,17 +53,21 @@ class Player:
     def Usar(self, item):
         mochila = Mochila()
         if mochila.VerificarItem(item.name):
-            if item.name == 'Life Potion':
+            sleep(1)
+            if item.tipe == 'Life':
                 self.vida += item.Add
                 if self.vida > self.lvl * 100:
                     self.vida = self.lvl * 100
-                print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de vida\nFicando com {self.vida}HP')
-            elif item.name == 'Mana Potion':
+                print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de vida\nFicando com {self.vida} de HP')
+            elif item.tipe == 'Mana':
                 self.mana += item.Add
                 if self.mana > self.lvl * 150:
                     self.mana = self.lvl * 150
-                print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de mana\nFicando com {self.mana}MANA')
+                print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de mana\nFicando com {self.mana} de MANA')
             mochila.RetirarItem(item.name)
+        else:
+            sleep(2)
+            print(f'{self.nome_player} Não tem {item.name} na mochila...')
 
 
     def atacarMonstro(self, monster):
@@ -66,11 +78,17 @@ class Player:
             if self.vivo:
                 if monster.vivo:
                     if self.equip.Gastaveis:
-                        qtd = int(mochila.VerificarItem(self.equip.flecha_name, True))
-                        if qtd <= 0:
-                            self.equip.atacavel = False
-                            return f'{self.nome_player} não pode atacar pois acabou as flechas'
-                        mochila.RetirarItem(self.equip.flecha_name)
+                        if self.equip.tipe == 'lança':
+                            if not mochila.VerificarItem(self.equip.name):
+                                return f'{self.nome_player} não tem esse item'
+                            else:
+                                mochila.RetirarItem(self.equip.name)
+                        else:
+                            qtd = int(mochila.VerificarItem(self.equip.flecha_name, True))
+                            if qtd <= 0:
+                                self.equip.atacavel = False
+                                return f'{self.nome_player} não pode atacar pois acabou as flechas'
+                            mochila.RetirarItem(self.equip.flecha_name)
                     monster.life -= self.equip.ataque
                     if monster.life <= 0:
                         monster.life = 0
@@ -94,13 +112,13 @@ class Player:
 
     def ModoAtaque(self, monster):
         atacado = False
-        listaAtk = ['Atacar monstro', 'Equipar item', 'Usar Potions', 'Conversar', 'Fugir']
+        listaAtk = ['Atacar monstro', 'Equipar item', 'Abrir Mochila', 'Usar itens', 'Conversar', 'Fugir']
         while monster.vivo:
             if self.vivo:
-                Magia_Arma = ['Atacar Com Magia', 'Atacar com Armas']
+                sleep(1)
                 print(f'\nFalta {self.upp - self.exp_player}XP Para você upar para o lvl {self.lvl + 1}')
                 print(f'LIFE:{self.vida}   MANA:{self.mana}   LVL:{self.lvl}')
-                op = Menu(listaAtk)
+                op = Menu(listaAtk, obrigatorio=False)
                 if op == 'Atacar monstro':
                     sleep(1)
                     print(self.atacarMonstro(monster))
@@ -108,24 +126,25 @@ class Player:
                     sleep(1)
                     if monster.vivo:
                         print(monster.atacarPlayer(self))
-                elif op == 'Usar Potions':
+                elif op == 'Abrir Mochila':
+                    mochila = Mochila()
+                    mochila.AbrirMochila()
+                elif op == 'Usar itens':
                     mochila = Mochila()
                     sleep(1)
-                    while True:
-                        mochila.MostrarPots()
-                        resp = str(input('999 para\nDigite sua opção: [Mana/Life]: ')).lower()
-                        if resp == 'mana' or resp == 'mana potion':
-                            manapot = ManaPotion()
-                            self.Usar(manapot)
+                    resp = 0
+                    while isinstance(resp, int):
+                        args = mochila.Mostrar_Itens_Curar(False)
+                        resp = Menu(args)
+                        if resp == 999:
                             break
-                        elif resp == 'life' or resp == 'life potion':
-                            lifepot = LifePotion()
-                            self.Usar(lifepot)
-                            break
-                        elif resp == '999':
-                            break
-                        print('=-' * 10)
-                        print('ERRO! DIGITE UMA OPÇÃO VALIDA [Mana/Life]')
+                        elif resp == 'Mana Potion':
+                            cura = ManaPotion()
+                        elif resp == 'Life Potion':
+                            cura = LifePotion()
+                        elif resp == 'Meat':
+                            cura = Meat()
+                        self.Usar(cura)
                 elif op == 'Conversar':
                     if monster.conversavel:
                         from random import randint
@@ -170,6 +189,8 @@ class Player:
                 elif op == 'Equipar item':
                     mochila = Mochila()
                     lst = Menu(mochila.MostrarArmas(False))
+                    if lst == 999:
+                        continue
                     self.Equipar(lst)
 
     def Equipar(self, equip):
@@ -183,6 +204,10 @@ class Player:
                 arma = ArcoSimples(flecha)
             elif equip == 'Mace':
                 arma = Mace()
+            elif equip == 'Spear':
+                arma = Spear()
+            elif equip == 'Bone Ascent':
+                arma = BoneAscent()
             self.equip = arma
         else:
             self.equip = equip

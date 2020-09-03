@@ -58,7 +58,7 @@ class Orc(Monsters):
 class Minotaur(Monsters):
     drop = ['Gold Coin', 'Mace', 'Minotaur Skin', 'Book']
     qtd = [16, 1, 2, 1]
-    porc = [70, 10, 18, 8]
+    porc = [70, 5, 18, 8]
     name = 'Minotaur'
     life = 210
     ataque = randint(15, 30)

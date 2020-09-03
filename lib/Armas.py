@@ -3,9 +3,10 @@ from lib.Mochila import Mochila
 
 
 class ArmasBrancas:
-    pass
+    tipe = 'arma branca'
 
 class Arcos:
+    tipe = 'arco'
     def __init__(self, Flecha):
         mochila = Mochila()
         if mochila.VerificarItem(Flecha.name):
@@ -18,6 +19,10 @@ class Arcos:
 
 class Flechas:
     pass
+
+
+class Lanca:
+    tipe = 'lança'
 
     
 class Faquinha(ArmasBrancas):
@@ -55,4 +60,20 @@ class ArcoSimples(Arcos):
     ataque = 0
     Gastaveis = False
     atacavel = False
+    equipado = False
+
+
+class Spear(Lanca):
+    name = 'Spear'
+    ataque = randint(15, 35)
+    Gastaveis = True
+    atacavel = True
+    equipado = False
+
+
+class BoneAscent(ArmasBrancas):
+    name = 'Bone Ascent'
+    ataque = randint(35, 51)
+    Gastaveis = False
+    atacavel = True
     equipado = False

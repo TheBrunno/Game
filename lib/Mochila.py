@@ -1,4 +1,5 @@
 import json
+from time import sleep
 
 class Mochila:
     def Adicionar_mochila(self, item, qtd=1):
@@ -27,13 +28,16 @@ class Mochila:
             json_file.close()
 
     def AbrirMochila(self):
-        with open('mochila.json', 'r') as archive_json:
+        with open('_mochila.json', 'r') as archive_json:
             dic = json.load(archive_json)
+            sleep(0.5)
             print('=-' * 14)
             for k, v in dic.items():
+                sleep(0.5)
                 if v == 0:
                     continue
                 print(f' {k.ljust(20)}{v}')
+            sleep(0.5)
             print('=-' * 14)
 
 
@@ -74,20 +78,27 @@ class Mochila:
             with open('_mochila.json', 'w') as json_file:
                 json.dump(dic2, json_file, indent=4)
 
-    def MostrarPots(self):
+    def Mostrar_Itens_Curar(self, usuario=True):
         with open('_mochila.json', 'r') as json_file:
             dic = json.load(json_file)
+            args = []
             print('=-' * 10)
             for k, v in dic.items():
-                if k == 'Life Potion' or k == 'Mana Potion':
-                    print(f'{k}: {v}')
+                if k == 'Life Potion' or k == 'Mana Potion' or k == 'Meat':
+                    if usuario:
+                        print(f'{k}: {v}')
+                    else:
+                        args.append(k)
+            if not usuario:
+                return args
+            
 
     def MostrarArmas(self, usuario=True):
         with open('_mochila.json', 'r') as json_file:
             dic = json.load(json_file)
             if usuario:
                 for k , v in dic.items():
-                    if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples' or k == 'Mace':
+                    if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples' or k == 'Mace' or k == 'Spear' or k == 'Bone Ascent':
                         print('=-' * 10)
                         if usuario:
                             print(f'{k}: {v}')
@@ -97,6 +108,6 @@ class Mochila:
                     if k == 'Flecha Simples':
                         continue
                     else:
-                        if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada' or k == 'Mace':
+                        if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada' or k == 'Mace' or k == 'Spear' or k == 'Bone Ascent':
                             arms.append(k)
                 return arms
