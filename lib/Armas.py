@@ -27,7 +27,7 @@ class Lanca:
     
 class Faquinha(ArmasBrancas):
     name = 'Faquinha'
-    ataque = randint(10, 20)
+    ataque = randint(15, 25)
     Gastaveis = False
     atacavel = True
     equipado = False

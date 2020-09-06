@@ -3,6 +3,7 @@ from lib.Inimigos import Cursed_Skeleton, Troll, Orc, Monsters, Minotaur
 from lib.Mochila import Mochila
 from lib.Player import Player, Menu, LeiaInt
 from lib.Item import LifePotion, ManaPotion
+from lib.Vocacoes import Vocations, Druid, Archer, Berseker, Knight, Necromancer, Sorcerer, Paladin
 from time import sleep
 
 def dinamicPrint(msg, car='-'):
@@ -26,35 +27,63 @@ def leiaStr(msg):
                 return name_player
 
 
-listatu = ['Sim', 'Não']
-listarminicial = ['Faquinha', 'Arco Simples (Vem com 25 flechas simples)']
-name_player = leiaStr(' Digite o nome do player: ')
+print('Bruno: Olá Aventureiro! Me parece que é novo por aqui não é mesmo?\n')
+sleep(3)
+print('Bruno: Meu nome é Bruno, eu estou preso neste mundo a algum tempo. Conheço bastente sobre,\nE eu te guiarei \"até conseguir andar com suas próprias pernas\" :D \n')
+sleep(5)
+while True:
+    name_player = leiaStr(' Bruno: Poderia me dizer seu nome: ').title().strip()
+    if name_player != 'Bruno':
+        break
+    print('\nESCOLHA OUTRO NOME\n')
 player = Player(f'{name_player}')
-print(f'Seja bem vindo {name_player}...')
-print('Vamos aprender alguns comandos basicos?')
-print('Quer aprender a atacar monstros?\n')
-op = Menu(listatu, obrigatorio=False)
+if player.voc == None:
+    print('\nOk, antes de começar você precisa escolher sua vocação, (ESCOLHA COM CUIDADO, DEPOIS NÃO SERÁ POSSIVEL ALTERAR)\n')
+    sleep(1)
+    print('Escolha Sua Vocação:')
+    vocacao = Menu(['Druid', 'Sorcerer', 'Necromancer', 'Paladin', 'Archer', 'Knight', 'Berseker'], obrigatorio=False)
+    if vocacao == 'Druid':
+        player.voc = Druid(player)
+    elif vocacao == 'Sorcerer':
+        player.voc = Sorcerer(player)
+    elif vocacao == 'Necromancer':
+        player.voc = Necromancer(player)
+    elif vocacao == 'Paladin':
+        player.voc = Paladin(player)
+    elif vocacao == 'Archer':
+        player.voc = Archer(player)
+    elif vocacao == 'Knight':
+        player.voc = Knight(player)
+    elif vocacao == 'Berseker':
+        player.voc = Berseker(player)
+    sleep(3)
+    print(f'{player.nome_player} Escolheu {vocacao} como vocação!')
+    sleep(2)
+print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
+sleep(3)
+print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
+sleep(3)
+print('Bruno: Quer treinar com um monstro fraco?')
+op = Menu(['Sim', 'Não'], obrigatorio=False)
 if op == 'Sim':
     troll = Troll()
     mochila = Mochila()
-    if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples'):
-        arm = Menu(listarminicial, obrigatorio=False)
-        if arm == 'Faquinha':
+    if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples') and not mochila.VerificarItem('Bone Ascent') and not mochila.VerificarItem('Spear'):  
+        sleep(2)
+        print('Bruno: Me parece que não te nenhuma arma, escolha uma dessas duas:') 
+        arm = Menu(['Faquinha      Dano médio: 20', 'Arco Simples (Vem com 25 flechas simples)      Dano médio: 27'], obrigatorio=False)
+        if arm[:7] == 'Faquinha':
             arma = Faquinha()
         elif arm[:12] == 'Arco Simples':
             flecha = FlechaSimples()
             mochila.Adicionar_mochila(flecha.name, 25)
             arma = ArcoSimples(flecha)
+            print(f'Foi adicionado ')
         mochila.Adicionar_mochila(arma.name, 1)
         player.Equipar(arma)
     else:
         print('Qual arma usar?')
         sleep(1)
-        lstArmas = mochila.MostrarArmas(False)
-        armaEscolhida = Menu(lstArmas, obrigatorio=False)
+        armaEscolhida = Menu(mochila.MostrarArmas(False), obrigatorio=False)
         player.Equipar(armaEscolhida)
     res = player.ModoAtaque(troll)
-if op == 'Não':
-    print('Ah, me parece que ja é experitente.. então vamos lá...')
-sleep(1)
-print('')

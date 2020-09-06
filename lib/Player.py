@@ -39,10 +39,10 @@ def Menu(lst, num=False, obrigatorio=True):
 
 
 class Player:
+    voc = None
     vivo = True
     lvl = 1
-    vida = lvl * 100
-    mana = lvl * 150
+    vida = mana = aumentoMana = aumentoVida = 0
     equip = None
     def __init__(self, nome):
         self.nome_player = nome
@@ -99,8 +99,8 @@ class Player:
                             self.upp += 300
                             self.exp_player = 0
                             self.lvl += 1
-                            self.vida = self.lvl * 100
-                            self.mana = self.lvl * 150
+                            self.vida = self.lvl * self.aumentoVida
+                            self.mana = self.lvl * self.aumentoMana
                             return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você upou para o lvl {self.lvl}..'
                         return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você venceu! Ganhou {monster.exp} de exp'
                     return f'{self.nome_player} ataca \'{monster.name}\' com {self.equip.name}, que ficou com {monster.life} de vida'
