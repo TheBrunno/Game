@@ -93,21 +93,34 @@ class Mochila:
                 return args
             
 
-    def MostrarArmas(self, usuario=True):
+    def MostrarArmas(self, usuario=True, equipament=False):
         with open('_mochila.json', 'r') as json_file:
             dic = json.load(json_file)
             if usuario:
                 for k , v in dic.items():
-                    if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples' or k == 'Mace' or k == 'Spear' or k == 'Bone Ascent':
-                        print('=-' * 10)
-                        if usuario:
-                            print(f'{k}: {v}')
+                    if not equipament:
+                        if k == 'Faquinha' or k == 'Espada' or k == 'Arco Simples' or k == 'Flecha Simples' or k == 'Mace' or k == 'Spear' or k == 'Bone Ascent':
+                            print('=-' * 10)
+                            if usuario:
+                                print(f'{k}: {v}')
+                    else:
+                        if k == 'Capacete De Couro' or k == 'Armadura De Couro' or k == 'Calça De Couro' or k == 'Bota De Couro':
+                            print('=-' * 10)
+                            if usuario:
+                                print(f'{k}: {v}')
             if not usuario:
                 arms = []
+                equips = []
                 for k in dic:
                     if k == 'Flecha Simples':
                         continue
                     else:
-                        if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada' or k == 'Mace' or k == 'Spear' or k == 'Bone Ascent':
-                            arms.append(k)
-                return arms
+                        if not equipament:
+                            if k == 'Arco Simples' or k == 'Faquinha' or k == 'Espada' or k == 'Mace' or k == 'Spear' or k == 'Bone Ascent':
+                                arms.append(k)
+                        else:
+                            if k == 'Capacete De Couro' or k == 'Armadura De Couro' or k == 'Calça De Couro' or k == 'Botas De Couro':
+                                equips.append(k)
+                if not equipament:
+                    return arms
+                return equips

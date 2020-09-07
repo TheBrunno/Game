@@ -3,7 +3,8 @@ from lib.Inimigos import Cursed_Skeleton, Troll, Orc, Monsters, Minotaur
 from lib.Mochila import Mochila
 from lib.Player import Player, Menu, LeiaInt
 from lib.Item import LifePotion, ManaPotion
-from lib.Vocacoes import Vocations, Druid, Archer, Berseker, Knight, Necromancer, Sorcerer, Paladin
+from lib.Vocacoes import Druid, Archer, Berseker, Knight, Necromancer, Sorcerer, Paladin
+from lib.Armaduras import HelmetLeather
 from time import sleep
 
 def dinamicPrint(msg, car='-'):
@@ -27,12 +28,12 @@ def leiaStr(msg):
                 return name_player
 
 
-print('Bruno: Olá Aventureiro! Me parece que é novo por aqui não é mesmo?\n')
-sleep(3)
-print('Bruno: Meu nome é Bruno, eu estou preso neste mundo a algum tempo. Conheço bastente sobre,\nE eu te guiarei \"até conseguir andar com suas próprias pernas\" :D \n')
-sleep(5)
+# print('Bruno: Olá Aventureiro! Me parece que é novo por aqui não é mesmo?\n')
+# sleep(3)
+# print('Bruno: Meu nome é Bruno, eu estou preso neste mundo a algum tempo. Conheço bastente sobre,\nE eu te guiarei \"até conseguir andar com suas próprias pernas\" :D \n')
+# sleep(5)
 while True:
-    name_player = leiaStr(' Bruno: Poderia me dizer seu nome: ').title().strip()
+    name_player = leiaStr(' Bruno: Poderia me dizer seu nome: ').strip()
     if name_player != 'Bruno':
         break
     print('\nESCOLHA OUTRO NOME\n')
@@ -59,11 +60,11 @@ if player.voc == None:
     sleep(3)
     print(f'{player.nome_player} Escolheu {vocacao} como vocação!')
     sleep(2)
-print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
-sleep(3)
-print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
-sleep(3)
-print('Bruno: Quer treinar com um monstro fraco?')
+# print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
+# sleep(3)
+# print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
+# sleep(3)
+# print('Bruno: Quer treinar com um monstro fraco?')
 op = Menu(['Sim', 'Não'], obrigatorio=False)
 if op == 'Sim':
     troll = Troll()
@@ -80,10 +81,10 @@ if op == 'Sim':
             arma = ArcoSimples(flecha)
             print(f'Foi adicionado ')
         mochila.Adicionar_mochila(arma.name, 1)
-        player.Equipar(arma)
+        player.EquiparArma(arma)
     else:
         print('Qual arma usar?')
         sleep(1)
         armaEscolhida = Menu(mochila.MostrarArmas(False), obrigatorio=False)
-        player.Equipar(armaEscolhida)
+        player.EquiparArma(armaEscolhida)
     res = player.ModoAtaque(troll)

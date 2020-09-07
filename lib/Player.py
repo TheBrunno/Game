@@ -2,6 +2,7 @@ from lib.Item import LifePotion, ManaPotion, Meat
 from lib.Mochila import Mochila
 from lib.Inimigos import Monsters
 from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples, Mace, Spear, BoneAscent
+from lib.Armaduras import HelmetLeather, ArmorLeather, LegsLeather, BootsLeather
 from time import sleep
 
 
@@ -42,8 +43,12 @@ class Player:
     voc = None
     vivo = True
     lvl = 1
-    vida = mana = aumentoMana = aumentoVida = 0
+    vida = mana = aumentoMana = aumentoVida = defesa = 0
     equip = None
+    equipHead = None
+    equipArmor = None
+    equipLegs = None
+    equipBoots = None
     def __init__(self, nome):
         self.nome_player = nome
         self.exp_player = 0
@@ -173,6 +178,7 @@ class Player:
                         sleep(2)
                         print(monster.msgNot)
                         sleep(1)
+                        print(monster.atacarPlayer(self))
                 elif op == 'Fugir':
                     from random import randint
                     porc = randint(0, 2)
@@ -187,13 +193,19 @@ class Player:
                         print(monster.atacarPlayer(self))
                         sleep(1)
                 elif op == 'Equipar item':
+                    equip = Menu(['Equipar Armas', 'Equipar Armaduras'])
                     mochila = Mochila()
-                    lst = Menu(mochila.MostrarArmas(False))
-                    if lst == 999:
-                        continue
-                    self.Equipar(lst)
+                    sleep(1)
+                    if equip == 'Equipar Armas':
+                        lst = Menu(mochila.MostrarArmas(False))
+                        sleep(1)
+                        self.EquiparArma(lst)
+                    elif equip == 'Equipar Armaduras':
+                        lst = Menu(mochila.MostrarArmas(False, True))
+                        sleep(1)
+                        self.EquiparArmadura(lst)
 
-    def Equipar(self, equip):
+    def EquiparArma(self, equip):
         if isinstance(equip, str):
             if equip == 'Faquinha':
                 arma = Faquinha()
@@ -210,7 +222,33 @@ class Player:
                 arma = BoneAscent()
             self.equip = arma
         else:
-            self.equip = equip
+            if equip.tipe == 'arma branca' or equip.tipe == 'arco' or equip.tipe == 'arco':
+                self.equip = equip
         sleep(1)
         print(f'{self.nome_player} Equipou {self.equip.name}')
+        sleep(2)
+    
+
+    def EquiparArmadura(self, armadura):
+        sleep(1)
+        if isinstance(armadura, str):
+            if armadura == 'Capacete De Couro':
+                self.equipHead = HelmetLeather(self)
+            elif armadura == 'Armadura De Couro':
+                self.equipArmor = ArmorLeather(self)
+            elif armadura == 'Calça De Couro':
+                self.equipLegs = LegsLeather(self)
+            elif armadura == 'Bota De Couro':
+                self.equipBoots = BootsLeather(self)
+            print(f'{self.nome_player} Equipou {armadura}')
+        else:
+            if armadura.tipe == 'helmet':
+                self.equipHead = armadura
+            elif armadura.tipe == 'armor':
+                self.equipArmor = armadura
+            elif armadura.tipe == 'legs':
+                self.equipLegs = armadura
+            elif armadura.tipe == 'boots':
+                self.equipBoots = armadura
+            print(f'{self.nome_player} Equipou {armadura.name}')
         sleep(2)

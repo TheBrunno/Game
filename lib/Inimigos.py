@@ -15,7 +15,7 @@ class Monsters:
                 mochila.Adicionar_mochila(self.drop[ele], taxa)
 
     def atacarPlayer(self, player):
-        player.vida -= self.ataque
+        player.vida -= int(self.ataque - (self.ataque * player.defesa / 100))
         if player.vida <= 0:
             player.vida = 0
             if player.vivo:
