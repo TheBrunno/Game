@@ -5,6 +5,7 @@ from lib.Player import Player, Menu, LeiaInt
 from lib.Item import LifePotion, ManaPotion
 from lib.Vocacoes import Druid, Archer, Berseker, Knight, Necromancer, Sorcerer, Paladin
 from lib.Armaduras import HelmetLeather
+from lib.Magias import Cura_Druid_Leve, Magia_Cura_All
 from time import sleep
 
 def dinamicPrint(msg, car='-'):
@@ -60,10 +61,10 @@ if player.voc == None:
     sleep(time)
     print(f'{player.nome_player} Escolheu {vocacao} como vocação!')
     sleep(time)
-# print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
-# sleep(time)
-# print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
-# sleep(time)
+print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
+sleep(time)
+print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
+sleep(time)
 print('Bruno: Quer treinar com um monstro fraco?')
 op = Menu(['Sim', 'Não'], obrigatorio=False)
 if op == 'Sim':

@@ -3,6 +3,7 @@ from lib.Mochila import Mochila
 from lib.Inimigos import Monsters
 from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples, Mace, Spear, BoneAscent
 from lib.Armaduras import HelmetLeather, ArmorLeather, LegsLeather, BootsLeather
+from lib.Magias import Cura_Druid_Leve, Magia_Cura_All
 from time import sleep
 
 
@@ -43,7 +44,7 @@ class Player:
     voc = None
     vivo = True
     lvl = 1
-    vida = mana = aumentoMana = aumentoVida = defesa = 0
+    vida = mana = aumentoMana = aumentoVida = defesa = vidaMax = ManaMax = 0
     equip = equipHead = equipArmor = equipLegs = equipBoots = None
     def __init__(self, nome):
         self.nome_player = nome
@@ -57,13 +58,19 @@ class Player:
             sleep(time)
             if item.tipe == 'Life':
                 self.vida += item.Add
-                if self.vida > self.lvl * 100:
-                    self.vida = self.lvl * 100
+                if self.lvl == 1:
+                    if self.vida > self.vida_initial:
+                        self.vida = self.vida_initial
+                elif self.vida > self.lvl * self.aumentoVida:
+                    self.vida = self.lvl * self.aumentoVida
                 print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de vida\nFicando com {self.vida} de HP')
             elif item.tipe == 'Mana':
                 self.mana += item.Add
-                if self.mana > self.lvl * 150:
-                    self.mana = self.lvl * 150
+                if self.lvl == 1:
+                    if self.mana > self.mana_initial:
+                        self.mana = self.mana_initial
+                elif self.mana > self.lvl * self.aumentoMana:
+                    self.mana = self.lvl * self.aumentoMana
                 print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de mana\nFicando com {self.mana} de MANA')
             mochila.RetirarItem(item.name)
         else:
@@ -113,7 +120,7 @@ class Player:
 
     def ModoAtaque(self, monster):
         atacado = False
-        listaAtk = ['Atacar monstro', 'Equipar item', 'Abrir Mochila', 'Usar itens', 'Conversar', 'Fugir']
+        listaAtk = ['Atacar monstro', 'Equipar item', 'Abrir Mochila', 'Curar', 'Conversar', 'Fugir']
         while monster.vivo:
             if self.vivo:
                 sleep(time)
@@ -121,31 +128,39 @@ class Player:
                 print(f'LIFE:{self.vida}   MANA:{self.mana}   LVL:{self.lvl}')
                 op = Menu(listaAtk, obrigatorio=False)
                 if op == 'Atacar monstro':
+                    resp = Menu(['Atacar com Magia', 'Atacar com Arma'])
                     sleep(time)
-                    print(self.atacarMonstro(monster))
-                    atacado = True
-                    sleep(time)
+                    if resp == 'Atacar com Arma':
+                        print(self.atacarMonstro(monster))
+                        atacado = True
+                    elif resp == 'Atacar com Magia':
+                        pass
                     if monster.vivo:
                         print(monster.atacarPlayer(self))
+                    sleep(time)
                 elif op == 'Abrir Mochila':
                     mochila = Mochila()
                     mochila.AbrirMochila()
-                elif op == 'Usar itens':
-                    mochila = Mochila()
-                    sleep(time)
-                    resp = 0
-                    while isinstance(resp, int):
-                        args = mochila.Mostrar_Itens_Curar(False)
-                        resp = Menu(args)
-                        if resp == 999:
-                            break
-                        elif resp == 'Mana Potion':
-                            cura = ManaPotion()
-                        elif resp == 'Life Potion':
-                            cura = LifePotion()
-                        elif resp == 'Meat':
-                            cura = Meat()
-                        self.Usar(cura)
+                elif op == 'Curar':
+                    resp = Menu(['Curar com Magia', 'Curar com Itens'])
+                    if resp == 'Curar com Magia':
+                        Magia_Cura_All(self, Cura_Druid_Leve())
+                    elif resp == 'Curar com Itens':
+                        mochila = Mochila()
+                        sleep(time)
+                        resp = 0
+                        while isinstance(resp, int):
+                            args = mochila.Mostrar_Itens_Curar(False)
+                            resp = Menu(args)
+                            if resp == 999:
+                                break
+                            elif resp == 'Mana Potion':
+                                cura = ManaPotion()
+                            elif resp == 'Life Potion':
+                                cura = LifePotion()
+                            elif resp == 'Meat':
+                                cura = Meat()
+                            self.Usar(cura)
                 elif op == 'Conversar':
                     if monster.conversavel:
                         from random import randint
