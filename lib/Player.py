@@ -28,7 +28,7 @@ def Menu(lst, num=False, obrigatorio=True):
         print(f'{ind + 1} - {ele}')
     print('-=' * 10)
     if obrigatorio:
-        print('999 para sair')
+        print('999 para VOLTAR')
     op = LeiaInt('Digite sua opção: ', maxn=len(lst), minn=1 ,obrigatorio=obrigatorio)
     if not num:
         if obrigatorio:
@@ -38,17 +38,13 @@ def Menu(lst, num=False, obrigatorio=True):
     elif num:
         return op
 
-
+time = 0
 class Player:
     voc = None
     vivo = True
     lvl = 1
     vida = mana = aumentoMana = aumentoVida = defesa = 0
-    equip = None
-    equipHead = None
-    equipArmor = None
-    equipLegs = None
-    equipBoots = None
+    equip = equipHead = equipArmor = equipLegs = equipBoots = None
     def __init__(self, nome):
         self.nome_player = nome
         self.exp_player = 0
@@ -58,7 +54,7 @@ class Player:
     def Usar(self, item):
         mochila = Mochila()
         if mochila.VerificarItem(item.name):
-            sleep(1)
+            sleep(time)
             if item.tipe == 'Life':
                 self.vida += item.Add
                 if self.vida > self.lvl * 100:
@@ -71,7 +67,7 @@ class Player:
                 print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de mana\nFicando com {self.mana} de MANA')
             mochila.RetirarItem(item.name)
         else:
-            sleep(2)
+            sleep(time)
             print(f'{self.nome_player} Não tem {item.name} na mochila...')
 
 
@@ -120,15 +116,15 @@ class Player:
         listaAtk = ['Atacar monstro', 'Equipar item', 'Abrir Mochila', 'Usar itens', 'Conversar', 'Fugir']
         while monster.vivo:
             if self.vivo:
-                sleep(1)
+                sleep(time)
                 print(f'\nFalta {self.upp - self.exp_player}XP Para você upar para o lvl {self.lvl + 1}')
                 print(f'LIFE:{self.vida}   MANA:{self.mana}   LVL:{self.lvl}')
                 op = Menu(listaAtk, obrigatorio=False)
                 if op == 'Atacar monstro':
-                    sleep(1)
+                    sleep(time)
                     print(self.atacarMonstro(monster))
                     atacado = True
-                    sleep(1)
+                    sleep(time)
                     if monster.vivo:
                         print(monster.atacarPlayer(self))
                 elif op == 'Abrir Mochila':
@@ -136,7 +132,7 @@ class Player:
                     mochila.AbrirMochila()
                 elif op == 'Usar itens':
                     mochila = Mochila()
-                    sleep(1)
+                    sleep(time)
                     resp = 0
                     while isinstance(resp, int):
                         args = mochila.Mostrar_Itens_Curar(False)
@@ -155,9 +151,9 @@ class Player:
                         from random import randint
                         porc = randint(0, 3)
                         if porc == 3 and not atacado:
-                            sleep(2)
+                            sleep(time)
                             print(monster.msgTru)
-                            sleep(1)
+                            sleep(time)
                             self.exp_player += monster.exp
                             if self.exp_player >= self.upp:
                                 self.upp += 300
@@ -171,39 +167,44 @@ class Player:
                             return
                         else:
                             print(monster.msgNot)
-                            sleep(2)
+                            sleep(time)
                             print(monster.atacarPlayer(self))
-                            sleep(1)
+                            sleep(time)
                     else:
-                        sleep(2)
+                        sleep(time)
                         print(monster.msgNot)
-                        sleep(1)
+                        sleep(time)
                         print(monster.atacarPlayer(self))
                 elif op == 'Fugir':
                     from random import randint
                     porc = randint(0, 2)
                     if porc == 1 or porc == 2:
-                        sleep(2)
+                        sleep(time)
                         print(f'{self.nome_player} fugiu da luta com {monster.name}...')
                         return 'Fugiu'
                     else:
-                        sleep(1)
+                        sleep(time)
                         print(f'{self.nome_player} não conseguiu fugir da luta com {monster.name}')
-                        sleep(2)
+                        sleep(time)
                         print(monster.atacarPlayer(self))
-                        sleep(1)
+                        sleep(time)
                 elif op == 'Equipar item':
                     equip = Menu(['Equipar Armas', 'Equipar Armaduras'])
                     mochila = Mochila()
-                    sleep(1)
+                    sleep(time)
                     if equip == 'Equipar Armas':
                         lst = Menu(mochila.MostrarArmas(False))
-                        sleep(1)
+                        sleep(time)
                         self.EquiparArma(lst)
                     elif equip == 'Equipar Armaduras':
-                        lst = Menu(mochila.MostrarArmas(False, True))
-                        sleep(1)
-                        self.EquiparArmadura(lst)
+                        while True:
+                            lst = Menu(mochila.MostrarArmas(False, True))
+                            sleep(time)
+                            if lst == 999:
+                                break
+                            self.EquiparArmadura(lst)
+            else:
+                return
 
     def EquiparArma(self, equip):
         if isinstance(equip, str):
@@ -222,15 +223,18 @@ class Player:
                 arma = BoneAscent()
             self.equip = arma
         else:
+            if isinstance(equip, int):
+                if equip == 999:
+                    return
             if equip.tipe == 'arma branca' or equip.tipe == 'arco' or equip.tipe == 'arco':
                 self.equip = equip
-        sleep(1)
+        sleep(time)
         print(f'{self.nome_player} Equipou {self.equip.name}')
-        sleep(2)
+        sleep(time)
     
 
     def EquiparArmadura(self, armadura):
-        sleep(1)
+        sleep(time)
         if isinstance(armadura, str):
             if armadura == 'Capacete De Couro':
                 self.equipHead = HelmetLeather(self)
@@ -242,6 +246,9 @@ class Player:
                 self.equipBoots = BootsLeather(self)
             print(f'{self.nome_player} Equipou {armadura}')
         else:
+            if isinstance(armadura, int):
+                if armadura == 999:
+                    return
             if armadura.tipe == 'helmet':
                 self.equipHead = armadura
             elif armadura.tipe == 'armor':
@@ -251,4 +258,4 @@ class Player:
             elif armadura.tipe == 'boots':
                 self.equipBoots = armadura
             print(f'{self.nome_player} Equipou {armadura.name}')
-        sleep(2)
+        sleep(time)

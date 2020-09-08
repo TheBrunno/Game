@@ -8,11 +8,25 @@ class Monsters:
 
     def Dropar(self, player):
         mochila = Mochila()
+        itemsName = []
+        ind = 0
         for ele in range(len(self.drop)):
             ran = randint(0, 100)
             if ran <= self.porc[ele]:
                 taxa = randint(1, self.qtd[ele])
                 mochila.Adicionar_mochila(self.drop[ele], taxa)
+                itemsName.append(self.drop[ele])
+        for name in itemsName:
+            if ind == 0:
+                print(f'{self.name} Dropou {name}', end='')
+                ind += 1
+                continue
+            print(f', {name}', end='')
+            ind += 1
+        print()
+        if ind == 0:
+            print(f'{self.name} Não dropou nada')
+
 
     def atacarPlayer(self, player):
         player.vida -= int(self.ataque - (self.ataque * player.defesa / 100))
@@ -30,7 +44,7 @@ class Monsters:
 class Troll(Monsters):
     drop = ['Gold Coin', 'Troll Head', 'Meat']
     qtd = [5, 1, 4]
-    porc = [60, 7, 40]
+    porc = [90, 7, 40]
     name = 'Troll'
     life = 50
     ataque = randint(15, 30)

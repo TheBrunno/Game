@@ -27,11 +27,11 @@ def leiaStr(msg):
             if num + 1 == len(name_player):
                 return name_player
 
-
+time = 0
 # print('Bruno: Olá Aventureiro! Me parece que é novo por aqui não é mesmo?\n')
-# sleep(3)
+# sleep(time)
 # print('Bruno: Meu nome é Bruno, eu estou preso neste mundo a algum tempo. Conheço bastente sobre,\nE eu te guiarei \"até conseguir andar com suas próprias pernas\" :D \n')
-# sleep(5)
+# sleep(time)
 while True:
     name_player = leiaStr(' Bruno: Poderia me dizer seu nome: ').strip()
     if name_player != 'Bruno':
@@ -40,7 +40,7 @@ while True:
 player = Player(f'{name_player}')
 if player.voc == None:
     print('\nOk, antes de começar você precisa escolher sua vocação, (ESCOLHA COM CUIDADO, DEPOIS NÃO SERÁ POSSIVEL ALTERAR)\n')
-    sleep(1)
+    sleep(time)
     print('Escolha Sua Vocação:')
     vocacao = Menu(['Druid', 'Sorcerer', 'Necromancer', 'Paladin', 'Archer', 'Knight', 'Berseker'], obrigatorio=False)
     if vocacao == 'Druid':
@@ -57,20 +57,20 @@ if player.voc == None:
         player.voc = Knight(player)
     elif vocacao == 'Berseker':
         player.voc = Berseker(player)
-    sleep(3)
+    sleep(time)
     print(f'{player.nome_player} Escolheu {vocacao} como vocação!')
-    sleep(2)
+    sleep(time)
 # print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
-# sleep(3)
+# sleep(time)
 # print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
-# sleep(3)
-# print('Bruno: Quer treinar com um monstro fraco?')
+# sleep(time)
+print('Bruno: Quer treinar com um monstro fraco?')
 op = Menu(['Sim', 'Não'], obrigatorio=False)
 if op == 'Sim':
     troll = Troll()
     mochila = Mochila()
     if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples') and not mochila.VerificarItem('Bone Ascent') and not mochila.VerificarItem('Spear'):  
-        sleep(2)
+        sleep(time)
         print('Bruno: Me parece que não te nenhuma arma, escolha uma dessas duas:') 
         arm = Menu(['Faquinha      Dano médio: 20', 'Arco Simples (Vem com 25 flechas simples)      Dano médio: 27'], obrigatorio=False)
         if arm[:7] == 'Faquinha':
@@ -84,7 +84,7 @@ if op == 'Sim':
         player.EquiparArma(arma)
     else:
         print('Qual arma usar?')
-        sleep(1)
+        sleep(time)
         armaEscolhida = Menu(mochila.MostrarArmas(False), obrigatorio=False)
         player.EquiparArma(armaEscolhida)
     res = player.ModoAtaque(troll)

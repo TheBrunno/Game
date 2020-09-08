@@ -1,4 +1,4 @@
-class Armadura:
+class Couro:
     pass
 
 class Helmet:
@@ -13,22 +13,22 @@ class Legs:
 class Boots:
     tipe = 'boots'
 
-class HelmetLeather(Helmet, Armadura):
+class HelmetLeather(Helmet, Couro):
     name = 'Capacete De Couro'
     def __init__(self, ply):
         ply.defesa += 1
 
-class ArmorLeather(Armor, Armadura):
+class ArmorLeather(Armor, Couro):
     name = 'Armadura De Couro'
     def __init__(self, ply):
         ply.defesa += 2
 
-class LegsLeather(Legs, Armadura):
+class LegsLeather(Legs, Couro):
     name = 'Calça De Couro'
     def __init__(self, ply):
         ply.defesa += 2
 
-class BootsLeather(Boots, Armadura):
+class BootsLeather(Boots, Couro):
     name = 'Bota De Couro'
     def __init__(self, ply):
         ply.defesa += 1
