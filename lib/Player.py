@@ -3,7 +3,7 @@ from lib.Mochila import Mochila
 from lib.Inimigos import Monsters
 from lib.Armas import Espada, Faquinha, ArcoSimples, FlechaSimples, Mace, Spear, BoneAscent
 from lib.Armaduras import HelmetLeather, ArmorLeather, LegsLeather, BootsLeather
-from lib.Magias import Cura_Druid_Leve, Magia_Cura_All
+from lib.Magias import Cura_Druid_Leve, Magia_Cura_All, Magia_Ataque_All, Ataque_Druid_Leve
 from time import sleep
 
 
@@ -41,16 +41,37 @@ def Menu(lst, num=False, obrigatorio=True):
 
 time = 0
 class Player:
-    voc = None
     vivo = True
-    lvl = 1
-    vida = mana = aumentoMana = aumentoVida = defesa = vidaMax = ManaMax = 0
-    equip = equipHead = equipArmor = equipLegs = equipBoots = None
+    vida = mana = aumentoMana = aumentoVida = defesa = vidaMax = ManaMax = vida_initial = mana_initial = 0
+    equip = equipHead = equipArmor = equipLegs = equipBoots = voc = tipe_voc = None
+    magias_Liberadas_Ataque = []
+    magias_Liberadas_Cura = []
     def __init__(self, nome):
         self.nome_player = nome
         self.exp_player = 0
         self.upp = 100
-    
+        self.lvl = 1
+
+    @property
+    def lvl(self):
+        return self.__lvl
+
+    @lvl.setter
+    def lvl(self, value):
+        self.__lvl = value
+        if self.__lvl > 1:
+            if self.tipe_voc == 'druid':
+                if self.__lvl >= 2:
+                    self.magias_Liberadas_Cura.append('Kurapa Kwechiedza')
+                if self.__lvl >= 3:
+                    self.magias_Liberadas_Ataque.append('Kusasimba Kwechando Kurwisa')
+
+    def Upar(self):
+        self.upp += 300
+        self.exp_player = 0
+        self.lvl += 1
+        self.vida = self.lvl * self.aumentoVida
+        self.mana = self.lvl * self.aumentoMana
 
     def Usar(self, item):
         mochila = Mochila()
@@ -104,11 +125,7 @@ class Player:
                         self.exp_player += monster.exp
                         monster.Dropar(self)
                         if self.exp_player >= self.upp:
-                            self.upp += 300
-                            self.exp_player = 0
-                            self.lvl += 1
-                            self.vida = self.lvl * self.aumentoVida
-                            self.mana = self.lvl * self.aumentoMana
+                            self.Upar()
                             return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você upou para o lvl {self.lvl}..'
                         return f'{self.nome_player} matou {monster.name}.\nParabens {self.nome_player}, você venceu! Ganhou {monster.exp} de exp'
                     return f'{self.nome_player} ataca \'{monster.name}\' com {self.equip.name}, que ficou com {monster.life} de vida'
@@ -130,11 +147,17 @@ class Player:
                 if op == 'Atacar monstro':
                     resp = Menu(['Atacar com Magia', 'Atacar com Arma'])
                     sleep(time)
+                    if resp == 999:
+                        continue
                     if resp == 'Atacar com Arma':
                         print(self.atacarMonstro(monster))
                         atacado = True
                     elif resp == 'Atacar com Magia':
-                        pass
+                        resp = Menu(self.magias_Liberadas_Ataque)
+                        if resp == 999:
+                            continue
+                        Magia_Ataque_All(self, monster, resp)
+                        atacado = True
                     if monster.vivo:
                         print(monster.atacarPlayer(self))
                     sleep(time)
@@ -144,7 +167,10 @@ class Player:
                 elif op == 'Curar':
                     resp = Menu(['Curar com Magia', 'Curar com Itens'])
                     if resp == 'Curar com Magia':
-                        Magia_Cura_All(self, Cura_Druid_Leve())
+                        resp = Menu(self.magias_Liberadas_Cura)
+                        if resp == 999:
+                            continue
+                        Magia_Cura_All(self,resp)
                     elif resp == 'Curar com Itens':
                         mochila = Mochila()
                         sleep(time)
@@ -171,11 +197,7 @@ class Player:
                             sleep(time)
                             self.exp_player += monster.exp
                             if self.exp_player >= self.upp:
-                                self.upp += 300
-                                self.exp_player = 0
-                                self.lvl += 1
-                                self.vida = self.lvl * 100
-                                self.mana = self.lvl * 150
+                                self.Upar()
                                 print(f'{self.nome_player} conversou com {monster.name}. e entraram num acordo...\nParabens {self.nome_player}, você upou para o lvl {self.lvl}..')
                                 return
                             print(f'{self.nome_player} conversou com {monster.name} e entraram num acordo...\nParabens, você ganhou {monster.exp}EXP.')

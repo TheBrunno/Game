@@ -46,6 +46,8 @@ if player.voc == None:
     vocacao = Menu(['Druid', 'Sorcerer', 'Necromancer', 'Paladin', 'Archer', 'Knight', 'Berseker'], obrigatorio=False)
     if vocacao == 'Druid':
         player.voc = Druid(player)
+        player.listMagiaCura = ['Kurapa Kwechiedza (Cura Leve)']
+        player.listMagiaAtaque = []
     elif vocacao == 'Sorcerer':
         player.voc = Sorcerer(player)
     elif vocacao == 'Necromancer':
@@ -88,4 +90,5 @@ if op == 'Sim':
         sleep(time)
         armaEscolhida = Menu(mochila.MostrarArmas(False), obrigatorio=False)
         player.EquiparArma(armaEscolhida)
+    player.lvl += 9
     res = player.ModoAtaque(troll)
