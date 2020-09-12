@@ -65,6 +65,11 @@ class Player:
                     self.magias_Liberadas_Cura.append('Kurapa Kwechiedza')
                 if self.__lvl >= 3:
                     self.magias_Liberadas_Ataque.append('Kusasimba Kwechando Kurwisa')
+            elif self.tipe_voc == 'sorcerer':
+                if self.__lvl >= 2:
+                    self.magias_Liberadas_Cura.append('Chiedza Chemoto Mushonga')
+                if self.__lvl >= 3:
+                    self.magias_Liberadas_Ataque.append('Kushaya Simba Kwemoto')
 
     def Upar(self):
         self.upp += 300

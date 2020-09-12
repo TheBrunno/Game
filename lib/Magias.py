@@ -5,6 +5,8 @@ class Magia_Cura_All:
         if isinstance(mag, str):
             if mag == 'Kurapa Kwechiedza':
                 mag = Cura_Druid_Leve()
+            if mag == 'Chiedza Chemoto Mushonga':
+                mag = Cura_Sorcerer_Leve()
         if mag.tipe == 'cura':
             if ply.tipe_voc == mag.voc:
                 if ply.mana - mag.precoMana <= 0:
@@ -25,6 +27,8 @@ class Magia_Ataque_All:
         if isinstance(mga, str):
             if mga == 'Kusasimba Kwechando Kurwisa':
                 mga = Ataque_Druid_Leve()
+            if mga == 'Kushaya Simba Kwemoto':
+                mga = Ataque_Sorcerer_Leve()
         if ply.tipe_voc == mga.voc:
             if mst.vivo:
                 if mga.tipe == 'ataque':
@@ -40,17 +44,17 @@ class Magia_Ataque_All:
                         mst.Dropar(ply)
                         if ply.exp_player >= ply.upp:
                             ply.Upar()
-                            print(f'{ply.nome_player} matou {mst.name} com a magia \"{mga.name}\", gastando {mga.precoMana} de mana1.\nParabens {ply.nome_player}, você upou para o lvl {ply.lvl}..')
+                            print(f'{ply.nome_player} matou {mst.name} com a magia \"{mga.name}\", gastando {mga.precoMana} de mana.\nParabens {ply.nome_player}, você upou para o lvl {ply.lvl}..')
                             return
-                        print(f'{ply.nome_player} matou {mst.name} com a magia \"{mga.name}\", gastando {mga.precoMana}.\nParabens {ply.nome_player}, você venceu! Ganhou {mst.exp} de exp')
+                        print(f'{ply.nome_player} matou {mst.name} com a magia \"{mga.name}\", gastando {mga.precoMana} de mana.\nParabens {ply.nome_player}, você venceu! Ganhou {mst.exp} de exp')
                         return
-                    print(f'{ply.nome_player} Ataca {mst.name} com \"{mga.name}\" que ficou com {mst.life}HP')
+                    print(f'{ply.nome_player} Ataca {mst.name} com \"{mga.name}\" e gastou {mga.precoMana} de mana\n{mst.name} ficou com {mst.life}HP')
                     return
             else:
                 print(f'{mst.name} Já está morto')
                 return
 
-
+# Magias Druid
 class Cura_Druid_Leve:
     voc = 'druid'
     tipe = 'cura'
@@ -63,7 +67,21 @@ class Ataque_Druid_Leve:
     voc = 'druid'
     tipe = 'ataque'
     precoMana = 45
-    ataque = randint(40, 60)
+    ataque = randint(40, 50)
     name = 'Kusasimba Kwechando Kurwisa'
 
-            
+# Magias Sorcerer
+class Cura_Sorcerer_Leve:
+    voc = 'sorcerer'
+    tipe = 'cura'
+    precoMana = 30
+    cura = randint(30, 50)
+    name = 'Chiedza Chemoto Mushonga'
+
+
+class Ataque_Sorcerer_Leve:
+    voc = 'sorcerer'
+    tipe = 'ataque'
+    precoMana = 50
+    ataque = randint(45, 55)
+    name = 'Kushaya Simba Kwemoto'
