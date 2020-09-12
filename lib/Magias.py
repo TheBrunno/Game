@@ -7,6 +7,8 @@ class Magia_Cura_All:
                 mag = Cura_Druid_Leve()
             if mag == 'Chiedza Chemoto Mushonga':
                 mag = Cura_Sorcerer_Leve()
+            if mag == 'Tuka Mushonga':
+                mag = Cura_Necromancer_Leve()
         if mag.tipe == 'cura':
             if ply.tipe_voc == mag.voc:
                 if ply.mana - mag.precoMana <= 0:
@@ -29,6 +31,8 @@ class Magia_Ataque_All:
                 mga = Ataque_Druid_Leve()
             if mga == 'Kushaya Simba Kwemoto':
                 mga = Ataque_Sorcerer_Leve()
+            if mga == 'Kushaya Simba Kwekufa':
+                mga = Ataque_Necromancer_Leve()
         if ply.tipe_voc == mga.voc:
             if mst.vivo:
                 if mga.tipe == 'ataque':
@@ -54,34 +58,64 @@ class Magia_Ataque_All:
                 print(f'{mst.name} Já está morto')
                 return
 
-# Magias Druid
-class Cura_Druid_Leve:
+
+class Magia_Druid:
     voc = 'druid'
+
+class Magia_Sorcerer:
+    voc = 'sorcerer'
+    
+class Magia_Necromancer:
+    voc = 'necromancer'
+    
+class Magia_Paladin:
+    voc = 'paladin'
+    
+class Magia_Archer:
+    voc = 'archer'
+    
+class Magia_Knight:
+    voc = 'knight'
+
+class Magia_Berseker:
+    voc = 'berseker'
+
+
+# Magias Druid
+class Cura_Druid_Leve(Magia_Druid):
     tipe = 'cura'
     precoMana = 30
     cura = randint(40, 60)
     name = 'Kurapa Kwechiedza'
 
-
-class Ataque_Druid_Leve:
-    voc = 'druid'
+class Ataque_Druid_Leve(Magia_Druid):
     tipe = 'ataque'
     precoMana = 45
-    ataque = randint(40, 50)
+    ataque = randint(30, 40)
     name = 'Kusasimba Kwechando Kurwisa'
 
 # Magias Sorcerer
-class Cura_Sorcerer_Leve:
-    voc = 'sorcerer'
+class Cura_Sorcerer_Leve(Magia_Sorcerer):
     tipe = 'cura'
     precoMana = 30
     cura = randint(30, 50)
     name = 'Chiedza Chemoto Mushonga'
 
-
-class Ataque_Sorcerer_Leve:
-    voc = 'sorcerer'
+class Ataque_Sorcerer_Leve(Magia_Sorcerer):
     tipe = 'ataque'
     precoMana = 50
-    ataque = randint(45, 55)
+    ataque = randint(35, 45)
     name = 'Kushaya Simba Kwemoto'
+
+# Magias Necromancer
+class Cura_Necromancer_Leve(Magia_Necromancer):
+    tipe = 'cura'
+    precoMana = 60
+    cura = randint(30, 45)
+    name = 'Tuka Mushonga'
+
+class Ataque_Necromancer_Leve(Magia_Necromancer):
+    tipe = 'ataque'
+    precoMana = 70
+    ataque = randint(40, 55)
+    name = 'Kushaya Simba Kwekufa'

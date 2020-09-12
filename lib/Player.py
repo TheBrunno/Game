@@ -23,21 +23,29 @@ def LeiaInt(msg, maxn, minn=1, obrigatorio=True):
             return num
 
 
-def Menu(lst, num=False, obrigatorio=True):
+def Menu(lst, obrigatorio=True, qtd=False):
     print('-=' * 10)
-    for ind, ele in enumerate(lst):
-        print(f'{ind + 1} - {ele}')
+    if not qtd:
+        for ind, ele in enumerate(lst):
+            print(f'{ind + 1} - {ele}')
+    if qtd:
+        cont = 0
+        for ind, ele in enumerate(lst[0]):
+            print(f'{ind + 1} - {lst[1][cont]} {ele} ')
+            cont += 1
     print('-=' * 10)
     if obrigatorio:
         print('999 para VOLTAR')
-    op = LeiaInt('Digite sua opção: ', maxn=len(lst), minn=1 ,obrigatorio=obrigatorio)
-    if not num:
-        if obrigatorio:
-            if op == 999:
-                return 999
-        return lst[op - 1]
-    elif num:
-        return op
+    if qtd:
+        op = LeiaInt('Digite sua opção: ', maxn=len(lst[0]), minn=1 ,obrigatorio=obrigatorio)
+    else:
+        op = LeiaInt('Digite sua opção: ', maxn=len(lst), minn=1 ,obrigatorio=obrigatorio)
+    if obrigatorio:
+        if op == 999:
+            return 999
+        if qtd:
+            return lst[0][op - 1]
+    return lst[op - 1]
 
 time = 0
 class Player:
@@ -61,15 +69,20 @@ class Player:
         self.__lvl = value
         if self.__lvl > 1:
             if self.tipe_voc == 'druid':
-                if self.__lvl >= 2:
+                if self.__lvl == 2:
                     self.magias_Liberadas_Cura.append('Kurapa Kwechiedza')
-                if self.__lvl >= 3:
+                if self.__lvl == 4:
                     self.magias_Liberadas_Ataque.append('Kusasimba Kwechando Kurwisa')
             elif self.tipe_voc == 'sorcerer':
-                if self.__lvl >= 2:
+                if self.__lvl == 3:
                     self.magias_Liberadas_Cura.append('Chiedza Chemoto Mushonga')
-                if self.__lvl >= 3:
+                if self.__lvl == 2:
                     self.magias_Liberadas_Ataque.append('Kushaya Simba Kwemoto')
+            elif self.tipe_voc == 'necromancer':
+                if self.__lvl == 4:
+                    self.magias_Liberadas_Cura.append('Tuka Mushonga')
+                if self.__lvl == 2:
+                    self.magias_Liberadas_Ataque.append('Kushaya Simba Kwekufa')
 
     def Upar(self):
         self.upp += 300
@@ -87,17 +100,23 @@ class Player:
                 if self.lvl == 1:
                     if self.vida > self.vida_initial:
                         self.vida = self.vida_initial
+                        print(f'\'{self.nome_player}\' Usou {item.name} e encheu sua vida, ficando com {self.vida} de HP')
                 elif self.vida > self.lvl * self.aumentoVida:
                     self.vida = self.lvl * self.aumentoVida
-                print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de vida\nFicando com {self.vida} de HP')
+                    print(f'\'{self.nome_player}\' Usou {item.name} e encheu sua vida, ficando com {self.vida} de HP')
+                else:
+                    print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de vida\nFicando com {self.vida} de HP')
             elif item.tipe == 'Mana':
                 self.mana += item.Add
                 if self.lvl == 1:
                     if self.mana > self.mana_initial:
                         self.mana = self.mana_initial
+                        print(f'\'{self.nome_player}\' Usou {item.name} e encheu sua mana, ficando com {self.vida} de MANA')
                 elif self.mana > self.lvl * self.aumentoMana:
                     self.mana = self.lvl * self.aumentoMana
-                print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de mana\nFicando com {self.mana} de MANA')
+                    print(f'\'{self.nome_player}\' Usou {item.name} e encheu sua mana, ficando com {self.vida} de MANA')
+                else:
+                    print(f'\'{self.nome_player}\' Usou {item.name} e recuperou {item.Add} de mana\nFicando com {self.mana} de MANA')
             mochila.RetirarItem(item.name)
         else:
             sleep(time)
@@ -177,12 +196,11 @@ class Player:
                             continue
                         Magia_Cura_All(self,resp)
                     elif resp == 'Curar com Itens':
-                        mochila = Mochila()
-                        sleep(time)
-                        resp = 0
-                        while isinstance(resp, int):
-                            args = mochila.Mostrar_Itens_Curar(False)
-                            resp = Menu(args)
+                        while True:
+                            mochila = Mochila()
+                            sleep(time)
+                            args = mochila.Mostrar_Itens_Curar(False, True)
+                            resp = Menu(args, qtd=True)
                             if resp == 999:
                                 break
                             elif resp == 'Mana Potion':

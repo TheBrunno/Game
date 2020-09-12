@@ -65,6 +65,8 @@ print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros 
 sleep(time)
 print('Bruno: Aqui existem os labirintos. Nesses labirintos é onde estão os mais fortes dos monstros e mestres\n')
 sleep(time)
+print('Bruno: Caso você ataque um monstro, ele não aceitará mais sua conversa, se ele for muito forte para você, a unica opção será fugir, mas não ganhara nem XP nem LOOT')
+sleep(time)
 print('Bruno: Quer treinar com um monstro fraco?')
 op = Menu(['Sim', 'Não'], obrigatorio=False)
 if op == 'Sim':

@@ -78,19 +78,23 @@ class Mochila:
             with open('_mochila.json', 'w') as json_file:
                 json.dump(dic2, json_file, indent=4)
 
-    def Mostrar_Itens_Curar(self, usuario=True):
+    def Mostrar_Itens_Curar(self, usuario=True, qtd=False):
         with open('_mochila.json', 'r') as json_file:
             dic = json.load(json_file)
             args = []
+            qtd_list = []
             print('=-' * 10)
             for k, v in dic.items():
                 if k == 'Life Potion' or k == 'Mana Potion' or k == 'Meat':
                     if usuario:
                         print(f'{k}: {v}')
                     else:
+                        if qtd:
+                            qtd_list.append(v)
                         args.append(k)
             if not usuario:
-                return args
+                list_princ = [args, qtd_list]
+                return list_princ
             
 
     def MostrarArmas(self, usuario=True, equipament=False):
