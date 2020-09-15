@@ -30,14 +30,14 @@ class Mochila:
     def AbrirMochila(self):
         with open('_mochila.json', 'r') as archive_json:
             dic = json.load(archive_json)
-            sleep(0.5)
+            sleep(0.3)
             print('=-' * 14)
             for k, v in dic.items():
-                sleep(0.5)
+                sleep(0.3)
                 if v == 0:
                     continue
                 print(f' {k.ljust(20)}{v}')
-            sleep(0.5)
+            sleep(0.3)
             print('=-' * 14)
 
 

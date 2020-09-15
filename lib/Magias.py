@@ -9,6 +9,14 @@ class Magia_Cura_All:
                 mag = Cura_Sorcerer_Leve()
             if mag == 'Tuka Mushonga':
                 mag = Cura_Necromancer_Leve()
+            if mag == 'Chitsvene Kupodzwa Kwechiedza':
+                mag = Cura_Paladin_Leve()
+            if mag == 'Kurwisa Kwepanyama':
+                mag = Cura_Archer_Leve()
+            if mag == 'Kupora Kwakareruka':
+                mag = Cura_Knight_Leve()
+            if mag == 'Kutsamwa Kupora Chiedza':
+                mag = Cura_Berseker_Leve()
         if mag.tipe == 'cura':
             if ply.tipe_voc == mag.voc:
                 if ply.mana - mag.precoMana <= 0:
@@ -33,6 +41,14 @@ class Magia_Ataque_All:
                 mga = Ataque_Sorcerer_Leve()
             if mga == 'Kushaya Simba Kwekufa':
                 mga = Ataque_Necromancer_Leve()
+            if mga == 'Kurwiswa Kutsvene Chiedza':
+                mga = Ataque_Paladin_Leve()
+            if mga == 'Kupora Kwepanyama':
+                mga = Ataque_Archer_Leve()
+            if mga == 'Kurwiswa Kwakakomba Chiedza':
+                mga = Ataque_Knight_Leve()
+            if mga == 'Kudenha Zvine Hasha':
+                mga = Ataque_Berseker_Leve()
         if ply.tipe_voc == mga.voc:
             if mst.vivo:
                 if mga.tipe == 'ataque':
@@ -91,7 +107,7 @@ class Cura_Druid_Leve(Magia_Druid):
 class Ataque_Druid_Leve(Magia_Druid):
     tipe = 'ataque'
     precoMana = 45
-    ataque = randint(30, 40)
+    ataque = randint(10, 20)
     name = 'Kusasimba Kwechando Kurwisa'
 
 # Magias Sorcerer
@@ -104,18 +120,70 @@ class Cura_Sorcerer_Leve(Magia_Sorcerer):
 class Ataque_Sorcerer_Leve(Magia_Sorcerer):
     tipe = 'ataque'
     precoMana = 50
-    ataque = randint(35, 45)
+    ataque = randint(15, 25)
     name = 'Kushaya Simba Kwemoto'
 
 # Magias Necromancer
 class Cura_Necromancer_Leve(Magia_Necromancer):
     tipe = 'cura'
     precoMana = 60
-    cura = randint(30, 45)
+    cura = randint(25, 40)
     name = 'Tuka Mushonga'
 
 class Ataque_Necromancer_Leve(Magia_Necromancer):
     tipe = 'ataque'
     precoMana = 70
-    ataque = randint(40, 55)
+    ataque = randint(20, 30)
     name = 'Kushaya Simba Kwekufa'
+
+# Magias Paladin
+class Cura_Paladin_Leve(Magia_Paladin):
+    tipe = 'cura'
+    precoMana = 50
+    cura = randint(20, 30)
+    name = 'Chitsvene Kupodzwa Kwechiedza'
+
+class Ataque_Paladin_Leve(Magia_Paladin):
+    tipe = 'ataque'
+    precoMana = 40
+    ataque = randint(15, 25)
+    name = 'Kurwiswa Kutsvene Chiedza'
+
+# Magias Archer
+class Cura_Archer_Leve(Magia_Archer):
+    tipe = 'cura'
+    precoMana = 50
+    cura = randint(15, 25)
+    name = 'Kupora Kwepanyama'
+
+class Ataque_Archer_Leve(Magia_Archer):
+    tipe = 'ataque'
+    precoMana = 40
+    ataque = randint(20, 30)
+    name = 'Kurwisa Kwepanyama'
+
+# Magias Knight
+class Cura_Knight_Leve(Magia_Knight):
+    tipe = 'cura'
+    precoMana = 40
+    cura = randint(15, 25)
+    name = 'Kupora Kwakareruka'
+
+class Ataque_Knight_Leve(Magia_Knight):
+    tipe = 'ataque'
+    precoMana = 70
+    ataque = randint(30, 40)
+    name = 'Kurwiswa Kwakakomba Chiedza'
+
+# Magias Berseker
+class Cura_Berseker_Leve(Magia_Berseker):
+    tipe = 'cura'
+    precoMana = 20
+    cura = randint(10, 20)
+    name = 'Kutsamwa Kupora Chiedza'
+
+class Ataque_Berseker_Leve(Magia_Berseker):
+    tipe = 'ataque'
+    precoMana = 50
+    ataque = randint(35, 45)
+    name = 'Kudenha Zvine Hasha'

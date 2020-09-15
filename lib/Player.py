@@ -83,6 +83,26 @@ class Player:
                     self.magias_Liberadas_Cura.append('Tuka Mushonga')
                 if self.__lvl == 2:
                     self.magias_Liberadas_Ataque.append('Kushaya Simba Kwekufa')
+            elif self.tipe_voc == 'paladin':
+                if self.__lvl == 3:
+                    self.magias_Liberadas_Cura.append('Chitsvene Kupodzwa Kwechiedza')
+                if self.__lvl == 4:
+                    self.magias_Liberadas_Ataque.append('Kurwiswa Kutsvene Chiedza')
+            elif self.tipe_voc == 'archer':
+                if self.__lvl == 4:
+                    self.magias_Liberadas_Cura.append('Kupora Kwepanyama')
+                if self.__lvl == 3:
+                    self.magias_Liberadas_Ataque.append('Kurwisa Kwepanyama')
+            elif self.tipe_voc == 'knight':
+                if self.__lvl == 3:
+                    self.magias_Liberadas_Cura.append('Kupora Kwakareruka')
+                if self.__lvl == 3:
+                    self.magias_Liberadas_Ataque.append('Kurwiswa Kwakakomba Chiedza')
+            elif self.tipe_voc == 'berseker':
+                if self.__lvl == 3:
+                    self.magias_Liberadas_Cura.append('Kutsamwa Kupora Chiedza')
+                if self.__lvl == 4:
+                    self.magias_Liberadas_Ataque.append('Kudenha Zvine Hasha')
 
     def Upar(self):
         self.upp += 300

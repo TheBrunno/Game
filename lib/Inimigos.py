@@ -42,9 +42,9 @@ class Monsters:
 
 
 class Troll(Monsters):
-    drop = ['Gold Coin', 'Troll Head', 'Meat']
-    qtd = [5, 1, 4]
-    porc = [90, 7, 40]
+    drop = ['Gold Coin', 'Troll Head', 'Meat', 'Flecha Simples']
+    qtd = [5, 1, 4, 3]
+    porc = [90, 7, 40, 70]
     name = 'Troll'
     life = 50
     ataque = randint(15, 30)
