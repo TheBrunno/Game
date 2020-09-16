@@ -90,5 +90,4 @@ if op == 'Sim':
         sleep(time)
         armaEscolhida = Menu(mochila.MostrarArmas(False), obrigatorio=False)
         player.EquiparArma(armaEscolhida)
-    player.lvl += 9
     res = player.ModoAtaque(troll)

@@ -27,14 +27,14 @@ class Lanca:
     
 class Faquinha(ArmasBrancas):
     name = 'Faquinha'
-    ataque = randint(15, 25)
+    ataque = randint(5, 15)
     Gastaveis = False
     atacavel = True
     equipado = False
 
 class Espada(ArmasBrancas):
     name = 'Espada'
-    ataque = randint(15, 25)
+    ataque = randint(10, 20)
     Gastaveis = False
     atacavel = True
     equipado = False
@@ -42,7 +42,7 @@ class Espada(ArmasBrancas):
 
 class Mace(ArmasBrancas):
     name = 'Mace'
-    ataque = randint(25, 38)
+    ataque = randint(20, 30)
     Gastaveis = False
     atacavel = True
     equipado = False
@@ -50,7 +50,7 @@ class Mace(ArmasBrancas):
 
 class FlechaSimples(Flechas):
     name = 'Flecha Simples'
-    ataque = randint(22, 32)
+    ataque = randint(8, 20)
     Gastaveis = True
     atacavel = False
     equipado = False

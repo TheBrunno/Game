@@ -25,7 +25,7 @@ class Monsters:
             ind += 1
         print()
         if ind == 0:
-            print(f'{self.name} Não dropou nada')
+            print(f'{self.name} não dropou nada')
 
 
     def atacarPlayer(self, player):

@@ -7,7 +7,7 @@ class Druid:
         ply.mana = 80
         ply.aumentoMana = 58
         ply.aumentoVida = 28
-        ply.defesa = 5
+        ply.defesa = 4
 
 class Sorcerer:
     def __init__(self, ply):
@@ -18,7 +18,7 @@ class Sorcerer:
         ply.mana = 85
         ply.aumentoMana = 60
         ply.aumentoVida = 26
-        ply.defesa = 5
+        ply.defesa = 4
 
 class Necromancer:
     def __init__(self, ply):
@@ -29,7 +29,7 @@ class Necromancer:
         ply.mana = 100
         ply.aumentoMana = 65
         ply.aumentoVida = 21
-        ply.defesa = 5
+        ply.defesa = 3
 
 class Paladin:
     def __init__(self, ply):
@@ -41,6 +41,7 @@ class Paladin:
         ply.aumentoMana = 45
         ply.aumentoVida = 41
         ply.defesa = 10
+        ply.dano_bonus = 5
 
 class Archer:
     def __init__(self, ply):
@@ -52,6 +53,7 @@ class Archer:
         ply.aumentoMana = 41
         ply.aumentoVida = 45
         ply.defesa = 11
+        ply.dano_bonus = 4
 
 class Knight:
     def __init__(self, ply):
@@ -63,6 +65,7 @@ class Knight:
         ply.aumentoMana = 22
         ply.aumentoVida = 64
         ply.defesa = 15
+        ply.dano_bonus = 4
 
 class Berseker:
     def __init__(self, ply):
@@ -74,3 +77,4 @@ class Berseker:
         ply.aumentoMana = 14
         ply.aumentoVida = 72
         ply.defesa = 18
+        ply.dano_bonus = 5

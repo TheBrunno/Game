@@ -50,7 +50,7 @@ def Menu(lst, obrigatorio=True, qtd=False):
 time = 0
 class Player:
     vivo = True
-    vida = mana = aumentoMana = aumentoVida = defesa = vidaMax = ManaMax = vida_initial = mana_initial = 0
+    vida = mana = aumentoMana = aumentoVida = defesa = vidaMax = ManaMax = vida_initial = mana_initial = dano_bonus = 0
     equip = equipHead = equipArmor = equipLegs = equipBoots = voc = tipe_voc = None
     magias_Liberadas_Ataque = []
     magias_Liberadas_Cura = []
@@ -70,39 +70,43 @@ class Player:
         if self.__lvl > 1:
             if self.tipe_voc == 'druid':
                 if self.__lvl == 2:
-                    self.magias_Liberadas_Cura.append('Kurapa Kwechiedza')
+                    magia = 'Kurapa Kwechiedza', 'Cura'
                 if self.__lvl == 4:
-                    self.magias_Liberadas_Ataque.append('Kusasimba Kwechando Kurwisa')
+                    magia = 'Kusasimba Kwechando Kurwisa', 'Ataque'
             elif self.tipe_voc == 'sorcerer':
                 if self.__lvl == 3:
-                    self.magias_Liberadas_Cura.append('Chiedza Chemoto Mushonga')
+                    magia = 'Chiedza Chemoto Mushonga', 'Cura'
                 if self.__lvl == 2:
-                    self.magias_Liberadas_Ataque.append('Kushaya Simba Kwemoto')
+                    magia = 'Kushaya Simba Kwemoto', 'Ataque'
             elif self.tipe_voc == 'necromancer':
                 if self.__lvl == 4:
-                    self.magias_Liberadas_Cura.append('Tuka Mushonga')
+                    magia = 'Tuka Mushonga', 'Cura'
                 if self.__lvl == 2:
-                    self.magias_Liberadas_Ataque.append('Kushaya Simba Kwekufa')
+                    magia = 'Kushaya Simba Kwekufa', 'Ataque'
             elif self.tipe_voc == 'paladin':
                 if self.__lvl == 3:
-                    self.magias_Liberadas_Cura.append('Chitsvene Kupodzwa Kwechiedza')
+                    magia = 'Chitsvene Kupodzwa Kwechiedza', 'Cura'
                 if self.__lvl == 4:
-                    self.magias_Liberadas_Ataque.append('Kurwiswa Kutsvene Chiedza')
+                    magia = 'Kurwiswa Kutsvene Chiedza', 'Ataque'
             elif self.tipe_voc == 'archer':
                 if self.__lvl == 4:
-                    self.magias_Liberadas_Cura.append('Kupora Kwepanyama')
+                    magia = 'Kupora Kwepanyama', 'Cura'
                 if self.__lvl == 3:
-                    self.magias_Liberadas_Ataque.append('Kurwisa Kwepanyama')
+                    magia = 'Kurwisa Kwepanyama', 'Ataque'
             elif self.tipe_voc == 'knight':
                 if self.__lvl == 3:
-                    self.magias_Liberadas_Cura.append('Kupora Kwakareruka')
+                    magia = 'Kupora Kwakareruka', 'Cura'
                 if self.__lvl == 3:
-                    self.magias_Liberadas_Ataque.append('Kurwiswa Kwakakomba Chiedza')
+                    magia = 'Kurwiswa Kwakakomba Chiedza', 'Ataque'
             elif self.tipe_voc == 'berseker':
                 if self.__lvl == 3:
-                    self.magias_Liberadas_Cura.append('Kutsamwa Kupora Chiedza')
+                    magia = 'Kutsamwa Kupora Chiedza', 'Cura'
                 if self.__lvl == 4:
-                    self.magias_Liberadas_Ataque.append('Kudenha Zvine Hasha')
+                    magia = 'Kudenha Zvine Hasha', 'Ataque'
+            if magia[1] == 'Ataque':
+                self.magias_Liberadas_Ataque.append(magia[0])
+            elif magia[1] == 'Cura':
+                self.magias_Liberadas_Cura.append(magia[0])
 
     def Upar(self):
         self.upp += 300
@@ -150,6 +154,12 @@ class Player:
         if mochila.VerificarItem(self.equip.name):
             if self.vivo:
                 if monster.vivo:
+                    if self.tipe_voc == 'berseker' or self.tipe_voc == 'knight':
+                        if self.equip.tipe == 'arma branca':
+                            self.equip.ataque += self.dano_bonus + (self.dano_bonus * self.dano_bonus / 100)
+                    elif self.tipe_voc == 'paladin' or self.tipe_voc == 'archer':
+                        if self.equip.tipe == 'arco' or self.equip.tipe == 'spear':
+                            self.equip.ataque += self.dano_bonus + (self.dano_bonus * self.dano_bonus / 100)
                     if self.equip.Gastaveis:
                         if self.equip.tipe == 'lança':
                             if not mochila.VerificarItem(self.equip.name):
@@ -163,6 +173,7 @@ class Player:
                                 return f'{self.nome_player} não pode atacar pois acabou as flechas'
                             mochila.RetirarItem(self.equip.flecha_name)
                     monster.life -= self.equip.ataque
+                    monster.life = int(monster.life)
                     if monster.life <= 0:
                         monster.life = 0
                         monster.vivo = False
