@@ -34,6 +34,7 @@ time = 0
 # print('Bruno: Meu nome é Bruno, eu estou preso neste mundo a algum tempo. Conheço bastente sobre,\nE eu te guiarei \"até conseguir andar com suas próprias pernas\" :D \n')
 # sleep(time)
 while True:
+    mochila = Mochila()
     name_player = leiaStr(' Bruno: Poderia me dizer seu nome: ').strip()
     if name_player != 'Bruno':
         break
@@ -58,8 +59,17 @@ if player.voc == None:
         player.voc = Knight(player)
     elif vocacao == 'Berseker':
         player.voc = Berseker(player)
+    if player.voc_tipe == 'mage':
+        premios_voc = ('Mana Potion', 4, 'Life Potion', 4)
+    elif player.voc_tipe == 'arqueiro':
+        premios_voc = ('Mana Potion', 3, 'Life Potion', 5)
+    elif player.voc_tipe == 'kina':
+        premios_voc = ('Mana Potion', 2, 'Life Potion', 6)
+    mochila.Adicionar_mochila(premios_voc[0], premios_voc[1])
+    mochila.Adicionar_mochila(premios_voc[2], premios_voc[3])
     sleep(time)
-    print(f'{player.nome_player} Escolheu {vocacao} como vocação!')
+    print(f'{player.nome_player} Escolheu {vocacao} como vocação! e por isso ganhou \'{premios_voc[1]} {premios_voc[0]}s e {premios_voc[3]} {premios_voc[2]}s\'')
+    player.lvl += 0
     sleep(time)
 print('Bruno: Saiba que neste mundo é matar ou morrer, existem muitos monstros e mestres fortissimos\n')
 sleep(time)
@@ -71,12 +81,11 @@ print('Bruno: Quer treinar com um monstro fraco?')
 op = Menu(['Sim', 'Não'], obrigatorio=False)
 if op == 'Sim':
     troll = Troll()
-    mochila = Mochila()
     if not mochila.VerificarItem('Faquinha') and not mochila.VerificarItem('Arco Simples') and not mochila.VerificarItem('Bone Ascent') and not mochila.VerificarItem('Spear'):  
         sleep(time)
         print('Bruno: Me parece que não te nenhuma arma, escolha uma dessas duas:') 
-        arm = Menu(['Faquinha      Dano médio: 20', 'Arco Simples (Vem com 25 flechas simples)      Dano médio: 27'], obrigatorio=False)
-        if arm[:7] == 'Faquinha':
+        arm = Menu(['Faquinha      Dano médio: 10', 'Arco Simples (Vem com 25 flechas simples)      Dano médio: 14'], obrigatorio=False)
+        if arm[:8] == 'Faquinha':
             arma = Faquinha()
         elif arm[:12] == 'Arco Simples':
             flecha = FlechaSimples()

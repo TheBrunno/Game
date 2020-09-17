@@ -51,7 +51,7 @@ time = 0
 class Player:
     vivo = True
     vida = mana = aumentoMana = aumentoVida = defesa = vidaMax = ManaMax = vida_initial = mana_initial = dano_bonus = 0
-    equip = equipHead = equipArmor = equipLegs = equipBoots = voc = tipe_voc = None
+    equip = equipHead = equipArmor = equipLegs = equipBoots = voc = tipe_voc = voc_tipe = None
     magias_Liberadas_Ataque = []
     magias_Liberadas_Cura = []
     def __init__(self, nome):
@@ -67,46 +67,47 @@ class Player:
     @lvl.setter
     def lvl(self, value):
         self.__lvl = value
-        if self.__lvl > 1:
-            if self.tipe_voc == 'druid':
-                if self.__lvl == 2:
-                    magia = 'Kurapa Kwechiedza', 'Cura'
-                if self.__lvl == 4:
-                    magia = 'Kusasimba Kwechando Kurwisa', 'Ataque'
-            elif self.tipe_voc == 'sorcerer':
-                if self.__lvl == 3:
-                    magia = 'Chiedza Chemoto Mushonga', 'Cura'
-                if self.__lvl == 2:
-                    magia = 'Kushaya Simba Kwemoto', 'Ataque'
-            elif self.tipe_voc == 'necromancer':
-                if self.__lvl == 4:
-                    magia = 'Tuka Mushonga', 'Cura'
-                if self.__lvl == 2:
-                    magia = 'Kushaya Simba Kwekufa', 'Ataque'
-            elif self.tipe_voc == 'paladin':
-                if self.__lvl == 3:
-                    magia = 'Chitsvene Kupodzwa Kwechiedza', 'Cura'
-                if self.__lvl == 4:
-                    magia = 'Kurwiswa Kutsvene Chiedza', 'Ataque'
-            elif self.tipe_voc == 'archer':
-                if self.__lvl == 4:
-                    magia = 'Kupora Kwepanyama', 'Cura'
-                if self.__lvl == 3:
-                    magia = 'Kurwisa Kwepanyama', 'Ataque'
-            elif self.tipe_voc == 'knight':
-                if self.__lvl == 3:
-                    magia = 'Kupora Kwakareruka', 'Cura'
-                if self.__lvl == 3:
-                    magia = 'Kurwiswa Kwakakomba Chiedza', 'Ataque'
-            elif self.tipe_voc == 'berseker':
-                if self.__lvl == 3:
-                    magia = 'Kutsamwa Kupora Chiedza', 'Cura'
-                if self.__lvl == 4:
-                    magia = 'Kudenha Zvine Hasha', 'Ataque'
-            if magia[1] == 'Ataque':
-                self.magias_Liberadas_Ataque.append(magia[0])
-            elif magia[1] == 'Cura':
-                self.magias_Liberadas_Cura.append(magia[0])
+        if self.__lvl == 1 and self.tipe_voc == None:
+            return
+        if self.tipe_voc == 'druid':
+            if self.__lvl == 1:
+                magia = 'Kurapa Kwechiedza', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kusasimba Kwechando Kurwisa', 'Ataque'
+        elif self.tipe_voc == 'sorcerer':
+            if self.__lvl == 1:
+                magia = 'Chiedza Chemoto Mushonga', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kushaya Simba Kwemoto', 'Ataque'
+        elif self.tipe_voc == 'necromancer':
+            if self.__lvl == 1:
+                magia = 'Tuka Mushonga', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kushaya Simba Kwekufa', 'Ataque'
+        elif self.tipe_voc == 'paladin':
+            if self.__lvl == 1:
+                magia = 'Chitsvene Kupodzwa Kwechiedza', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kurwiswa Kutsvene Chiedza', 'Ataque'
+        elif self.tipe_voc == 'archer':
+            if self.__lvl == 1:
+                magia = 'Kupora Kwepanyama', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kurwisa Kwepanyama', 'Ataque'
+        elif self.tipe_voc == 'knight':
+            if self.__lvl == 1:
+                magia = 'Kupora Kwakareruka', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kurwiswa Kwakakomba Chiedza', 'Ataque'
+        elif self.tipe_voc == 'berseker':
+            if self.__lvl == 1:
+                magia = 'Kutsamwa Kupora Chiedza', 'Cura'
+            if self.__lvl == 2:
+                magia = 'Kudenha Zvine Hasha', 'Ataque'
+        if magia[1] == 'Ataque':
+            self.magias_Liberadas_Ataque.append(magia[0])
+        elif magia[1] == 'Cura':
+            self.magias_Liberadas_Cura.append(magia[0])
 
     def Upar(self):
         self.upp += 300

@@ -101,7 +101,7 @@ class Magia_Berseker:
 class Cura_Druid_Leve(Magia_Druid):
     tipe = 'cura'
     precoMana = 30
-    cura = randint(40, 60)
+    cura = randint(10, 20)
     name = 'Kurapa Kwechiedza'
 
 class Ataque_Druid_Leve(Magia_Druid):
@@ -114,76 +114,76 @@ class Ataque_Druid_Leve(Magia_Druid):
 class Cura_Sorcerer_Leve(Magia_Sorcerer):
     tipe = 'cura'
     precoMana = 30
-    cura = randint(30, 50)
+    cura = randint(10, 20)
     name = 'Chiedza Chemoto Mushonga'
 
 class Ataque_Sorcerer_Leve(Magia_Sorcerer):
     tipe = 'ataque'
     precoMana = 50
-    ataque = randint(15, 25)
+    ataque = randint(12, 22)
     name = 'Kushaya Simba Kwemoto'
 
 # Magias Necromancer
 class Cura_Necromancer_Leve(Magia_Necromancer):
     tipe = 'cura'
     precoMana = 60
-    cura = randint(25, 40)
+    cura = randint(8, 18)
     name = 'Tuka Mushonga'
 
 class Ataque_Necromancer_Leve(Magia_Necromancer):
     tipe = 'ataque'
     precoMana = 70
-    ataque = randint(20, 30)
+    ataque = randint(15, 27)
     name = 'Kushaya Simba Kwekufa'
 
 # Magias Paladin
 class Cura_Paladin_Leve(Magia_Paladin):
     tipe = 'cura'
-    precoMana = 50
-    cura = randint(20, 30)
+    precoMana = 40
+    cura = randint(10, 20)
     name = 'Chitsvene Kupodzwa Kwechiedza'
 
 class Ataque_Paladin_Leve(Magia_Paladin):
     tipe = 'ataque'
-    precoMana = 40
+    precoMana = 30
     ataque = randint(15, 25)
     name = 'Kurwiswa Kutsvene Chiedza'
 
 # Magias Archer
 class Cura_Archer_Leve(Magia_Archer):
     tipe = 'cura'
-    precoMana = 50
-    cura = randint(15, 25)
+    precoMana = 40
+    cura = randint(8, 18)
     name = 'Kupora Kwepanyama'
 
 class Ataque_Archer_Leve(Magia_Archer):
     tipe = 'ataque'
-    precoMana = 40
-    ataque = randint(20, 30)
+    precoMana = 30
+    ataque = randint(18, 28)
     name = 'Kurwisa Kwepanyama'
 
 # Magias Knight
 class Cura_Knight_Leve(Magia_Knight):
     tipe = 'cura'
-    precoMana = 40
-    cura = randint(15, 25)
+    precoMana = 20
+    cura = randint(8, 18)
     name = 'Kupora Kwakareruka'
 
 class Ataque_Knight_Leve(Magia_Knight):
     tipe = 'ataque'
     precoMana = 70
-    ataque = randint(30, 40)
+    ataque = randint(15, 25)
     name = 'Kurwiswa Kwakakomba Chiedza'
 
 # Magias Berseker
 class Cura_Berseker_Leve(Magia_Berseker):
     tipe = 'cura'
     precoMana = 20
-    cura = randint(10, 20)
+    cura = randint(5, 15)
     name = 'Kutsamwa Kupora Chiedza'
 
 class Ataque_Berseker_Leve(Magia_Berseker):
     tipe = 'ataque'
-    precoMana = 50
-    ataque = randint(35, 45)
+    precoMana = 30
+    ataque = randint(20, 30)
     name = 'Kudenha Zvine Hasha'

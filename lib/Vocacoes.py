@@ -1,6 +1,7 @@
 class Druid:
     def __init__(self, ply):
         ply.tipe_voc = 'druid'
+        ply.voc_tipe = 'mage'
         ply.vida_initial = 50
         ply.mana_initial = 80
         ply.vida = 50
@@ -12,6 +13,7 @@ class Druid:
 class Sorcerer:
     def __init__(self, ply):
         ply.tipe_voc = 'sorcerer'
+        ply.voc_tipe = 'mage'
         ply.vida_initial = 45
         ply.mana_initial = 85
         ply.vida = 45
@@ -23,6 +25,7 @@ class Sorcerer:
 class Necromancer:
     def __init__(self, ply):
         ply.tipe_voc = 'necromancer'
+        ply.voc_tipe = 'mage'
         ply.vida_initial = 30
         ply.mana_initial = 100
         ply.vida = 30
@@ -34,6 +37,7 @@ class Necromancer:
 class Paladin:
     def __init__(self, ply):
         ply.tipe_voc = 'paladin'
+        ply.voc_tipe = 'arqueiro'
         ply.vida_initial = 60
         ply.mana_initial = 70
         ply.vida = 65
@@ -46,6 +50,7 @@ class Paladin:
 class Archer:
     def __init__(self, ply):
         ply.tipe_voc = 'archer'
+        ply.voc_tipe = 'arqueiro'
         ply.vida_initial = 70
         ply.mana_initial = 60
         ply.vida = 70
@@ -58,6 +63,7 @@ class Archer:
 class Knight:
     def __init__(self, ply):
         ply.tipe_voc = 'knight'
+        ply.voc_tipe = 'kina'
         ply.vida_initial = 100
         ply.mana_initial = 30
         ply.vida = 100
@@ -70,6 +76,7 @@ class Knight:
 class Berseker:
     def __init__(self, ply):
         ply.tipe_voc = 'berseker'
+        ply.voc_tipe = 'kina'
         ply.vida_initial = 110
         ply.mana_initial = 20
         ply.vida = 110
